@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="../static/stylesheets/team.css" th:href="@{/stylesheets/team.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <a href="/teams">
+        <button>Go Back to Teams</button>
+    </a>
+    <h1 th:text="${team.city + ' ' + team.name}"></h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Height</th>
+            <th>Weight</th>
+        </tr>
+        <tr th:each="player : ${team.activeRoster}">
+            <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+            <td th:text="${player.position}"></td>
+            <td th:text="${player.height}"></td>
+            <td th:text="${player.weight}"></td>
+        </tr>
+    </table>
+
+</body>

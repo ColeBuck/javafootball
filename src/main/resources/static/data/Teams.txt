@@ -1,0 +1,17 @@
+City    Name
+Portland,Pioneers,POR
+Boise,Bison,BSE
+Sacramento,Capitals,SAC
+Cheyenne,Cowboys,CHY
+San Antonio,Guardians,SA
+San Diego,Bolts,SD
+Las Vegas,Gamblers,LV
+Tucson,Tumblers,TCS
+Dayton,Darts,DAY
+St. Louis,Archers,STL
+Rochester,Raiders,ROC
+Greensboro,Flyers,GRN
+Orlando,Coasters,ORL
+Memphis,Rollers,MEM
+Montgomery,Riders,MNT
+Charleston,Rockets,CHR

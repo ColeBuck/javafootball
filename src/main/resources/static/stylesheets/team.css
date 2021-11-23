@@ -1,0 +1,26 @@
+* {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    display: inline;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
+td {
+    padding: 5px 20px;
+}
+
+th {
+    padding: 5px 20px;
+}
