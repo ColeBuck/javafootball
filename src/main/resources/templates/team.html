@@ -19,12 +19,14 @@
             <th>Position</th>
             <th>Height</th>
             <th>Weight</th>
+            <th>Rating</th>
         </tr>
         <tr th:each="player : ${team.activeRoster}">
             <td th:text="${player.firstName + ' ' + player.lastName}"></td>
             <td th:text="${player.position}"></td>
             <td th:text="${player.height}"></td>
             <td th:text="${player.weight}"></td>
+            <td th:text="${player.ratings.get('Overall')}"></td>
         </tr>
     </table>
 

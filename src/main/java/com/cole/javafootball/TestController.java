@@ -20,7 +20,7 @@ public class TestController {
     }
 
     @GetMapping("teams/{name}")
-    public String getTeam(@PathVariable(value="name") String name, Model model) {
+    public String getTeam(@PathVariable(value = "name") String name, Model model) {
         model.addAttribute("team", Team.getTeamByName(name));
         return "team";
     }

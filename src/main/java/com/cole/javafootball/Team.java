@@ -14,16 +14,17 @@ public class Team {
     private String city;
     private String name;
     private String abbreviation;
-    
+
     private short offenseRating;
     private short defenseRating;
 
     /*
-    HashMap<Position, ArrayList<Player>> depthChart = new HashMap<Position, ArrayList<Player>>();
-
-    ArrayList<Player> practiceSquad = new ArrayList<Player>();
-	ArrayList<Player> injuredReserve = new ArrayList<Player>();
-    */
+     * HashMap<Position, ArrayList<Player>> depthChart = new HashMap<Position,
+     * ArrayList<Player>>();
+     * 
+     * ArrayList<Player> practiceSquad = new ArrayList<Player>(); ArrayList<Player>
+     * injuredReserve = new ArrayList<Player>();
+     */
     private ArrayList<Player> activeRoster = new ArrayList<Player>();
 
     public Team(String city, String name, String abbreviation) {
@@ -34,35 +35,74 @@ public class Team {
     }
 
     public void populateRoster() {
-        int count = 0;
-
-        while(count < 53) {
-            if(count < 3) {
-                activeRoster.add(new Player(Player.Position.QB));
-            } else if(count < 6) {
-                activeRoster.add(new Player(Player.Position.RB));
-            } else if(count < 11) {
-                activeRoster.add(new Player(Player.Position.WR));
-            } else if(count < 14) {
-                activeRoster.add(new Player(Player.Position.TE));
-            } else if(count < 16) {
-                activeRoster.add(new Player(Player.Position.LT));
-            } else if(count < 18) {
-                activeRoster.add(new Player(Player.Position.LG));
-            } else if(count < 20) {
-                activeRoster.add(new Player(Player.Position.C));
-            } else if(count < 22) {
-                activeRoster.add(new Player(Player.Position.RG));
-            } else if(count < 24) {
-                activeRoster.add(new Player(Player.Position.RT));
-            }
-            count++;
+        for (int i = 0; i < 3; i++) {
+            activeRoster.add(new Player(Player.Position.QB));
+        }
+        for (int i = 0; i < 3; i++) {
+            activeRoster.add(new Player(Player.Position.RB));
+        }
+        for (int i = 0; i < 6; i++) {
+            activeRoster.add(new Player(Player.Position.WR));
+        }
+        for (int i = 0; i < 4; i++) {
+            activeRoster.add(new Player(Player.Position.TE));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.LT));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.LG));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.C));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.RG));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.RT));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.LE));
+        }
+        for (int i = 0; i < 3; i++) {
+            activeRoster.add(new Player(Player.Position.DT));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.RE));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.LOLB));
+        }
+        for (int i = 0; i < 3; i++) {
+            activeRoster.add(new Player(Player.Position.MLB));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.ROLB));
+        }
+        for (int i = 0; i < 6; i++) {
+            activeRoster.add(new Player(Player.Position.CB));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.FS));
+        }
+        for (int i = 0; i < 2; i++) {
+            activeRoster.add(new Player(Player.Position.SS));
+        }
+        for (int i = 0; i < 1; i++) {
+            activeRoster.add(new Player(Player.Position.K));
+        }
+        for (int i = 0; i < 1; i++) {
+            activeRoster.add(new Player(Player.Position.P));
+        }
+        for (int i = 0; i < 1; i++) {
+            activeRoster.add(new Player(Player.Position.LS));
         }
     }
 
     public static Team getTeamByName(String name) {
-        for(Team t : allTeams) {
-            if(t.name.equals(name)) {
+        for (Team t : allTeams) {
+            if (t.name.equals(name)) {
                 return t;
             }
         }
@@ -104,20 +144,19 @@ public class Team {
 
             br.readLine(); // skip the first line
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
 
                 String[] lineData = line.split(",");
 
-                Team temp = new Team(lineData[0],lineData[1], lineData[2]);
+                Team temp = new Team(lineData[0], lineData[1], lineData[2]);
                 // add team to list of all teams
                 allTeams.add(temp);
-            
-          
+
             }
-            
+
             br.close();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("ERROR: Team data could not be loaded");
         }
 

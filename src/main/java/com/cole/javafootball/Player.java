@@ -14,20 +14,28 @@ public class Player {
     private short height; // inches
     private short weight; // pounds
 
+    private PlayerRatings ratings;
+
     public Player() {
         position = Position.values()[new Random().nextInt(Position.values().length)];
+        ratings = new PlayerRatings(position);
+
         firstName = PlayerGeneration.generateFirstName();
         lastName = PlayerGeneration.generateLastName();
         height = PlayerGeneration.generateHeight(position);
         weight = PlayerGeneration.generateWeight(position);
+        PlayerGeneration.generateRatings(this);
     }
 
     public Player(Position position) {
         this.position = position;
+        ratings = new PlayerRatings(this.position);
+
         firstName = PlayerGeneration.generateFirstName();
         lastName = PlayerGeneration.generateLastName();
         height = PlayerGeneration.generateHeight(position);
         weight = PlayerGeneration.generateWeight(position);
+        PlayerGeneration.generateRatings(this);
     }
 
     public String getFirstName() {
@@ -50,6 +58,10 @@ public class Player {
 
     public String getWeight() {
         return weight + " lbs";
+    }
+
+    public PlayerRatings getRatings() {
+        return this.ratings;
     }
 
 }
