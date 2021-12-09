@@ -17,8 +17,10 @@ public class Team {
     private String name;
     private String abbreviation;
 
+    private short overallRating;
     private short offenseRating;
     private short defenseRating;
+    private short specialTeamsRating;
 
     private DepthChart depthChart = new DepthChart();
 
@@ -30,6 +32,10 @@ public class Team {
         this.abbreviation = abbreviation;
         populateRoster();
         fillDepthChart();
+        calculateOffenseRating();
+        calculateDefenseRating();
+        calculateSpecialTeamsRating();
+        calculateOverallRating();
     }
 
     public void populateRoster() {
@@ -130,12 +136,20 @@ public class Team {
         return abbreviation;
     }
 
+    public short getOverallRating() {
+        return overallRating;
+    }
+
     public short getOffenseRating() {
         return offenseRating;
     }
 
     public short getDefenseRating() {
         return defenseRating;
+    }
+
+    public short getSpecialTeamsRating() {
+        return specialTeamsRating;
     }
 
     public ArrayList<Player> getActiveRoster() {
@@ -173,5 +187,84 @@ public class Team {
             System.out.println("ERROR: Team data could not be loaded");
         }
 
+    }
+
+    public void calculateOffenseRating() {
+        short ratingsSum = 0;
+
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.QB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.RB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.WR).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.WR).get(1).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.WR).get(2).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.TE).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.LT).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.LG).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.C).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.RG).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.RT).get(0).getRatings().get(Rating.Overall));
+
+        this.offenseRating = (short) (ratingsSum / 11);
+    }
+
+    public void calculateDefenseRating() {
+        short ratingsSum = 0;
+
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.LE).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.DT).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.RE).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.LOLB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.MLB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.ROLB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.CB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.CB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.CB).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.FS).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.SS).get(0).getRatings().get(Rating.Overall));
+
+        this.defenseRating = (short) (ratingsSum / 11);
+    }
+
+    public void calculateSpecialTeamsRating() {
+        short ratingsSum = 0;
+
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.K).get(0).getRatings().get(Rating.Overall));
+        ratingsSum = (short) (ratingsSum
+                + getDepthChart().get(DepthChartPosition.P).get(0).getRatings().get(Rating.Overall));
+
+        this.specialTeamsRating = (short) (ratingsSum / 2);
+    }
+
+    public void calculateOverallRating() {
+        short ratingsSum = 0;
+
+        ratingsSum = (short) (ratingsSum + getOffenseRating());
+        ratingsSum = (short) (ratingsSum + getDefenseRating());
+        ratingsSum = (short) (ratingsSum + getSpecialTeamsRating());
+
+        this.overallRating = (short) (ratingsSum / 3);
     }
 }

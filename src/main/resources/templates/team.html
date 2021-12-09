@@ -29,6 +29,10 @@
         <option value="lastNameDescending">Last Name (Descending)</option>
     </select>
     <h1 th:text="${team.city + ' ' + team.name}"></h1>
+    <h2 th:text="${'Overall Rating: ' + team.overallRating}"></h2>
+    <h2 th:text="${'Offense Rating: ' + team.offenseRating}"></h2>
+    <h2 th:text="${'Defense Rating: ' + team.defenseRating}"></h2>
+    <h2 th:text="${'Special Teams Rating: ' + team.specialTeamsRating}"></h2>
     <table>
         <tr>
             <th>Name</th>
