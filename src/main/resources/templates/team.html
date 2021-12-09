@@ -12,6 +12,19 @@
     <a href="/teams">
         <button>Go Back to Teams</button>
     </a>
+    <select onChange="filterBy(this);">
+        <option selected disabled>Filter By Position</option>
+        <option value="all">All</option>
+        <option th:each="position : ${positions}" th:value="${position}" th:text="${position}"></option>
+    </select>
+    <select onChange="sortBy(this);">
+        <option selected disabled>Sort By</option>
+        <option value="default">Default</option>
+        <option value="ratingAscending">Rating (Ascending)</option>
+        <option value="ratingDescending">Rating (Descending)</option>
+        <option value="lastNameAscending">Last Name (Ascending)</option>
+        <option value="lastNameDescending">Last Name (Descending)</option>
+    </select>
     <h1 th:text="${team.city + ' ' + team.name}"></h1>
     <table>
         <tr>
@@ -21,7 +34,7 @@
             <th>Weight</th>
             <th>Rating</th>
         </tr>
-        <tr th:each="player : ${team.activeRoster}">
+        <tr th:each="player : ${roster}">
             <td th:text="${player.firstName + ' ' + player.lastName}"></td>
             <td th:text="${player.position}"></td>
             <td th:text="${player.height}"></td>
@@ -29,5 +42,29 @@
             <td th:text="${player.ratings.get('Overall')}"></td>
         </tr>
     </table>
+
+    <script>
+        function filterBy(selectBox) {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search);
+            if(selectBox.options[selectBox.selectedIndex].value == "all") {
+                params.delete("filterBy");
+            } else {
+                params.set('filterBy', selectBox.options[selectBox.selectedIndex].value);
+            }
+            window.location.href = location.pathname + "?" + params.toString();
+        }
+
+        function sortBy(selectBox) {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search);
+            if(selectBox.options[selectBox.selectedIndex].value == "default") {
+                params.delete("sortBy");
+            } else {
+                params.set('sortBy', selectBox.options[selectBox.selectedIndex].value);
+            }
+            window.location.href = location.pathname + "?" + params.toString();
+        }
+    </script>
 
 </body>
