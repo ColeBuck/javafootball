@@ -1,8 +1,6 @@
 package com.cole.javafootball;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import com.cole.javafootball.Player.Position;
 

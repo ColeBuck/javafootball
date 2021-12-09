@@ -1,6 +1,6 @@
 package com.cole.javafootball;
 
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -190,9 +190,9 @@ public class PlayerGeneration {
 
         // Step 1: load first name data
         try {
-            File firstNamesFile = ResourceUtils.getFile("classpath:static/data/FirstNames.txt");
-            FileReader fr = new FileReader(firstNamesFile);
-            BufferedReader br = new BufferedReader(fr);
+            ClassPathResource classPathResource = new ClassPathResource("static/data/FirstNames.txt");
+            InputStream inputStream = classPathResource.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             String line = null;
 
@@ -208,9 +208,9 @@ public class PlayerGeneration {
 
         // Step 2: load last name data
         try {
-            File lastNamesFile = ResourceUtils.getFile("classpath:static/data/LastNames.txt");
-            FileReader fr = new FileReader(lastNamesFile);
-            BufferedReader br = new BufferedReader(fr);
+            ClassPathResource classPathResource = new ClassPathResource("static/data/LastNames.txt");
+            InputStream inputStream = classPathResource.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             String line = null;
 
