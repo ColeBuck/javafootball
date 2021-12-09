@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import com.cole.javafootball.Player.Position;
+
 import org.springframework.util.ResourceUtils;
 
 public class Team {
@@ -18,13 +20,8 @@ public class Team {
     private short offenseRating;
     private short defenseRating;
 
-    /*
-     * HashMap<Position, ArrayList<Player>> depthChart = new HashMap<Position,
-     * ArrayList<Player>>();
-     * 
-     * ArrayList<Player> practiceSquad = new ArrayList<Player>(); ArrayList<Player>
-     * injuredReserve = new ArrayList<Player>();
-     */
+    private DepthChart depthChart = new DepthChart();
+
     private ArrayList<Player> activeRoster = new ArrayList<Player>();
 
     public Team(String city, String name, String abbreviation) {
@@ -32,6 +29,7 @@ public class Team {
         this.name = name;
         this.abbreviation = abbreviation;
         populateRoster();
+        fillDepthChart();
     }
 
     public void populateRoster() {
@@ -100,6 +98,17 @@ public class Team {
         }
     }
 
+    // auto-fill the team's depth chart based on overall ratings
+    public void fillDepthChart() {
+        for (Position position : Position.values()) {
+            ArrayList<Player> temp = RosterFilterSorter.filterByPosition(getActiveRoster(), position);
+            temp = RosterFilterSorter.sortByRating(temp, false);
+            while (temp.size() > 0) {
+                depthChart.addPlayer(DepthChartPosition.valueOf(position.toString()), temp.remove(0));
+            }
+        }
+    }
+
     public static Team getTeamByName(String name) {
         for (Team t : allTeams) {
             if (t.name.equals(name)) {
@@ -131,6 +140,10 @@ public class Team {
 
     public ArrayList<Player> getActiveRoster() {
         return activeRoster;
+    }
+
+    public DepthChart getDepthChart() {
+        return depthChart;
     }
 
     public static void loadTeamData() {

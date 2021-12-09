@@ -12,6 +12,9 @@
     <a href="/teams">
         <button>Go Back to Teams</button>
     </a>
+    <a th:href="@{/teams/} + ${team.name} + '/depthchart?position=QB'">
+        <button>View Depth Chart</button>
+    </a>
     <select onChange="filterBy(this);">
         <option selected disabled>Filter By Position</option>
         <option value="all">All</option>

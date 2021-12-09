@@ -30,11 +30,7 @@ public class TeamController {
                                                                 // actual roster)
 
         if (filterBy != null) {
-            for (Player player : team.getActiveRoster()) {
-                if (player.getPosition().equals(filterBy)) {
-                    rosterCopy.add(player);
-                }
-            }
+            rosterCopy = RosterFilterSorter.filterByPosition(team.getActiveRoster(), Position.valueOf(filterBy));
         } else {
             for (Player player : team.getActiveRoster()) {
                 rosterCopy.add(player);
@@ -44,32 +40,16 @@ public class TeamController {
         if (sortBy != null) {
             switch (sortBy) {
             case "ratingAscending":
-                Collections.sort(rosterCopy, new Comparator<Player>() {
-                    public int compare(Player p1, Player p2) {
-                        return p1.getRatings().get(Rating.Overall) - p2.getRatings().get(Rating.Overall);
-                    }
-                });
+                rosterCopy = RosterFilterSorter.sortByRating(rosterCopy, true);
                 break;
             case "ratingDescending":
-                Collections.sort(rosterCopy, new Comparator<Player>() {
-                    public int compare(Player p1, Player p2) {
-                        return p2.getRatings().get(Rating.Overall) - p1.getRatings().get(Rating.Overall);
-                    }
-                });
+                rosterCopy = RosterFilterSorter.sortByRating(rosterCopy, false);
                 break;
             case "lastNameAscending":
-                Collections.sort(rosterCopy, new Comparator<Player>() {
-                    public int compare(Player p1, Player p2) {
-                        return p1.getLastName().compareTo(p2.getLastName());
-                    }
-                });
+                rosterCopy = RosterFilterSorter.sortByLastName(rosterCopy, true);
                 break;
             case "lastNameDescending":
-                Collections.sort(rosterCopy, new Comparator<Player>() {
-                    public int compare(Player p1, Player p2) {
-                        return p2.getLastName().compareTo(p1.getLastName());
-                    }
-                });
+                rosterCopy = RosterFilterSorter.sortByLastName(rosterCopy, false);
                 break;
             }
         }
@@ -83,6 +63,28 @@ public class TeamController {
         model.addAttribute("roster", rosterCopy);
         model.addAttribute("positions", positions);
         return "team";
+    }
+
+    @GetMapping("teams/{name}/depthchart")
+    public String getDepthChart(@PathVariable(value = "name") String name,
+            @RequestParam(required = true) String position, Model model) {
+
+        Team team = Team.getTeamByName(name);
+        ArrayList<Player> players = new ArrayList<Player>();
+        for (Player p : team.getDepthChart().get(DepthChartPosition.valueOf(position))) {
+            players.add(p);
+        }
+
+        ArrayList<String> positions = new ArrayList<String>(); // used for populating combo box
+        for (Position p : Position.values()) {
+            positions.add(p.toString());
+        }
+
+        model.addAttribute("team", team);
+        model.addAttribute("players", players);
+        model.addAttribute("positions", positions);
+        model.addAttribute("selectedPosition", position);
+        return "depthchart";
     }
 
 }

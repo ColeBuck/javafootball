@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="../static/stylesheets/team.css" th:href="@{/stylesheets/team.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <a th:href="@{/teams/} + ${team.name}">
+        <button>Go Back to Team</button>
+    </a>
+    <select onChange="selectPosition(this);">
+        <option selected disabled>Select Position</option>
+        <option th:each="position : ${positions}" th:value="${position}" th:text="${position}"></option>
+    </select>
+    <h1 th:text="${team.city + ' ' + team.name + ' ' + selectedPosition + ' Depth Chart'}"></h1>
+    <table>
+        <tr>
+            <th>Slot</th>
+            <th>Player</th>
+        </tr>
+        <tr th:each="player, status : ${players}">
+            <td th:text="${status.index + 1}"></td>
+            <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+        </tr>
+    </table>
+
+    <script>
+        function selectPosition(selectBox) {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search);
+            params.set('position', selectBox.options[selectBox.selectedIndex].value);
+            window.location.href = location.pathname + "?" + params.toString();
+        }
+    </script>
+</body>
