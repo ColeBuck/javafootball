@@ -11,7 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 
 public class Team {
 
-    public static ArrayList<Team> allTeams = new ArrayList<Team>();
+    private static ArrayList<Team> allTeams = new ArrayList<Team>();
 
     private String city;
     private String name;
@@ -113,6 +113,10 @@ public class Team {
                 depthChart.addPlayer(DepthChartPosition.valueOf(position.toString()), temp.remove(0));
             }
         }
+    }
+
+    public static ArrayList<Team> getAllTeams() {
+        return allTeams;
     }
 
     public static Team getTeamByName(String name) {

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="../static/stylesheets/team.css" th:href="@{/stylesheets/creategame.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>New Game</h1>
+    <div class="team-select">
+        <p>Away Team</p>
+        <select id="away-team-select">
+            <option selected disabled value="">Select Team</option>
+            <option th:each="team : ${teams}" th:value="${team.name}" th:text="${team.name}"></option>
+        </select>
+    </div>
+    <div class="team-select">
+        <p>Home Team</p>
+        <select id="home-team-select">
+            <option selected disabled value="">Select Team</option>
+            <option th:each="team : ${teams}" th:value="${team.name}" th:text="${team.name}"></option>
+        </select>
+    </div>
+    <button onclick="createGame()">Start Game</button>
+
+    <script>
+        function createGame() {
+            var awayTeamSelect = document.getElementById("away-team-select")
+            var homeTeamSelect = document.getElementById("home-team-select")
+            var awayTeam = awayTeamSelect.options[awayTeamSelect.selectedIndex].value
+            var homeTeam = homeTeamSelect.options[homeTeamSelect.selectedIndex].value
+ 
+            if(awayTeam == "" || homeTeam == "") {
+                alert("Teams must be selected before starting the game!");
+            } else {
+                var request = new XMLHttpRequest();
+                request.open('POST', "/games/new?awayTeam=" + awayTeam + "&homeTeam=" + homeTeam, true);
+
+                request.onreadystatechange = function () {
+                    if (request.readyState === 4) {
+                        console.log(request.status);
+                        console.log(request.responseText);
+                        window.location.href="/games/" + request.responseText;
+                    }};
+
+                    request.send()
+
+            }
+        }
+    </script>
+</body>

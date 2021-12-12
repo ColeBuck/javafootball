@@ -1,0 +1,9 @@
+* {
+  font-family: "Nanum Gothic", sans-serif;
+  text-align: center;
+}
+
+div.team-select {
+  width: 50%;
+  float: left;
+}

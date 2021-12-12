@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="../static/stylesheets/team.css" th:href="@{/stylesheets/game.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="team">
+        <h1 th:text="${game.awayTeam.name}"></h1>
+        <p th:text="${'Overall Rating: ' + game.awayTeam.overallRating}"></p>
+        <p th:text="${game.awayScore}"></p>
+        <p th:text="${'Total Yards: ' + game.awayYards}"></p>
+    </div>
+    
+    <div class="team">
+        <h1 th:text="${game.homeTeam.name}"></h1>
+        <p th:text="${'Overall Rating: ' + game.homeTeam.overallRating}"></p>
+        <p th:text="${game.homeScore}"></p>
+        <p th:text="${'Total Yards: ' + game.homeYards}"></p>
+    </div>
+
+    <button onclick="simGame()">Sim Game</button>
+
+    <script>
+        function simGame() {
+            var request = new XMLHttpRequest();
+            request.open("PUT", window.location.href, true);
+            request.onreadystatechange = function () {
+                location.reload();
+            }
+            request.send();
+        }
+    </script>
+
+</body>
