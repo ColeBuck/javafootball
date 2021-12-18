@@ -1,0 +1,21 @@
+div.navbar {
+  margin-bottom: 75px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+div.navbar a {
+  font-size: 28px;
+  text-decoration: none;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+div.navbar a:hover {
+  text-decoration: underline;
+}
+
+div.navbar a:visited {
+  color: black;
+  text-decoration: none;
+}

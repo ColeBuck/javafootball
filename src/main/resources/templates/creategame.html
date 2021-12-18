@@ -5,10 +5,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link href="../static/stylesheets/team.css" th:href="@{/stylesheets/creategame.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/creategame.css}" rel="stylesheet" />
 </head>
 
 <body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
     <h1>New Game</h1>
     <div class="team-select">
         <p>Away Team</p>

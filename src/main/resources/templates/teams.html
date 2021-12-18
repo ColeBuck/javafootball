@@ -5,10 +5,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link href="../static/stylesheets/teams.css" th:href="@{/stylesheets/teams.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
 </head>
 
 <body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
     <div th:each="team : ${teams}">
         <p th:text="${team.city + ' ' + team.name}"></p>
         <p>

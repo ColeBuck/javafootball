@@ -5,12 +5,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link href="../static/stylesheets/team.css" th:href="@{/stylesheets/team.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/team.css}" rel="stylesheet" />
 </head>
 
 <body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
     <a th:href="@{/teams/} + ${team.name}">
-        <button>Go Back to Team</button>
+        <button>Go Back to Roster</button>
     </a>
     <select onChange="selectPosition(this);">
         <option selected disabled>Select Position</option>
