@@ -7,17 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/teams.css}" rel="stylesheet" />
 </head>
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
-    <div th:each="team : ${teams}">
-        <p th:text="${team.city + ' ' + team.name}"></p>
-        <p>
-            <a th:href="@{/teams/} + ${team.name}">
-                <button>View Team</button>
-            </a>
-        </p>
-        <hr>
+    <div class="teams-container">
+        <a th:each="team : ${teams}" th:href="@{/teams/} + ${team.name}">
+            <div class="team">
+                <p th:text="${team.city + ' ' + team.name}"></p>
+            </div>
+        </a>
     </div>
 </body>

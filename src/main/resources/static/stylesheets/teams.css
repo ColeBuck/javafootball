@@ -1,0 +1,27 @@
+div.team {
+  margin: 10px;
+  background-color: rgb(44, 38, 38);
+  color: white;
+  width: 23%;
+  display: inline-block;
+}
+
+div.team:hover {
+  background-color: grey;
+}
+
+div.teams-container a {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 1200px) {
+  div.team {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  div.team {
+    width: 45%;
+  }
+}
