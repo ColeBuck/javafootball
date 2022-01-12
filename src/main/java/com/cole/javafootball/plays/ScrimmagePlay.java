@@ -9,75 +9,105 @@ public class ScrimmagePlay extends Play {
 
     boolean touchdown; // was touchdown scored on this play?
 
-    public ScrimmagePlay(Game game, Team possession, short currentQuarter, short timeLeftQuarter, short ballPosition, short currentDown, short yardsToGo) {
+    public ScrimmagePlay(Game game, Team possession, short currentQuarter, short timeLeftQuarter, short ballPosition,
+            short currentDown, short yardsToGo) {
         super(game, possession, currentQuarter, timeLeftQuarter, ballPosition, currentDown, yardsToGo);
+    }
+
+    public void prePlayDisplay() {
+
+    }
+
+    public void postPlayDisplay() {
+        if (touchdown) {
+            game.setPlayDescription("The " + possession.getName() + " scored a touchdown!");
+        } else {
+            game.setPlayDescription("The " + possession.getName() + " gained " + yardsGained + " yards");
+        }
     }
 
     public void simulatePlay() {
 
         yardsGained = calculateYardsGained();
-        if(possession == game.getAwayTeam()) {
+        if (possession == game.getAwayTeam()) {
             game.addAwayYards(yardsGained);
         } else {
             game.addHomeYards(yardsGained);
         }
-        yardsToGo = (short) (yardsToGo - yardsGained);
-        
+        game.setYardsToGo((short) (yardsToGo - yardsGained));
+
         // update down
-        if(yardsToGo < 0) {
-            currentDown = 1;
-            yardsToGo = 10;
+        if (game.getYardsToGo() < 0) {
+            game.setCurrentDown((short) 1);
+            game.setYardsToGo((short) 10);
         } else {
-            currentDown++;
+            game.setCurrentDown((short) (currentDown + 1));
         }
 
         ballPosition = (short) (ballPosition + yardsGained);
-        timeLeftQuarter = (short) (timeLeftQuarter - calculateClockRunOff());
-        
+        game.setTimeLeftQuarter((short) (timeLeftQuarter - calculateClockRunOff())); // update clock
+
         // check for touchdown
-        if(ballPosition > 99) {
+        if (ballPosition > 99) {
             touchdown = true;
-            if(possession == game.getAwayTeam()) {
-                game.addAwayPoints((short)6);
+            if (possession == game.getAwayTeam()) {
+                game.addAwayPoints((short) 6);
             } else {
-                game.addHomePoints((short)6);
+                game.addHomePoints((short) 6);
             }
-            new XPAPlay(game, possession, currentQuarter, timeLeftQuarter, (short) 98, currentDown, yardsToGo);
-        } else if(timeLeftQuarter > 0) {
-            if(currentDown == 4) {
-                if(ballPosition > 67) {
-                    new FGAPlay(game, possession, currentQuarter, timeLeftQuarter, ballPosition, currentDown, yardsToGo);
+        }
+
+        postPlayDisplay();
+    }
+
+    public Play createNextPlay() {
+        if (touchdown) {
+            return new XPAPlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(), (short) 98,
+                    game.getCurrentDown(), game.getYardsToGo());
+        } else if (timeLeftQuarter > 0) {
+            if (game.getCurrentDown() == 4) {
+                if (ballPosition > 60) {
+                    return new FGAPlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                            ballPosition, game.getCurrentDown(), game.getYardsToGo());
                 } else {
-                    new PuntPlay(game, possession, currentQuarter, timeLeftQuarter, ballPosition, currentDown, yardsToGo);
+                    return new PuntPlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                            ballPosition, game.getCurrentDown(), game.getYardsToGo());
                 }
             } else {
-                new ScrimmagePlay(game, possession, currentQuarter, timeLeftQuarter, ballPosition, currentDown, yardsToGo);
+                return new ScrimmagePlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                        ballPosition, game.getCurrentDown(), game.getYardsToGo());
             }
-        // TESTING MULTIPLE QUARTERS HERE
-        } else if(currentQuarter < 4) {
-            if(currentDown == 4) {
-                if(ballPosition > 60) {
-                    new FGAPlay(game, possession, (short)(currentQuarter + 1), (short) 900, ballPosition, currentDown, yardsToGo);
+        } else if (currentQuarter < 4) {
+            game.incrementCurrentQuarter(); // move to next quarter
+            game.setTimeLeftQuarter((short) 900);
+            if (currentDown == 4) {
+                if (ballPosition > 60) {
+                    return new FGAPlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                            ballPosition, game.getCurrentDown(), game.getYardsToGo());
                 } else {
-                    new PuntPlay(game, possession, (short)(currentQuarter + 1), (short) 900, ballPosition, currentDown, yardsToGo);
+                    return new PuntPlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                            ballPosition, game.getCurrentDown(), game.getYardsToGo());
                 }
             } else {
-                new ScrimmagePlay(game, possession, (short)(currentQuarter + 1), (short) 900, ballPosition, currentDown, yardsToGo);
+                return new ScrimmagePlay(game, possession, game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                        ballPosition, game.getCurrentDown(), game.getYardsToGo());
             }
+        } else {
+            return null; // game over
         }
     }
 
     private short calculateYardsGained() {
         Random rand = new Random();
-        if(possession == game.getAwayTeam()) {
+        if (possession == game.getAwayTeam()) {
             float diff = (possession.getOffenseRating() - game.getHomeTeam().getDefenseRating());
-            System.out.println(diff/50);
-            return (short) (rand.nextInt(15) * (diff/50 + 1)); // TODO: need more complex algorithm here
+            System.out.println(diff / 50);
+            return (short) (rand.nextInt(15) * (diff / 50 + 1)); // TODO: need more complex algorithm here
         } else {
             float diff = (possession.getOffenseRating() - game.getAwayTeam().getDefenseRating());
-            System.out.println(diff/50);
-            return (short) (rand.nextInt(15) * (diff/50 + 1)); // TODO: need more complex algorithm here
+            System.out.println(diff / 50);
+            return (short) (rand.nextInt(15) * (diff / 50 + 1)); // TODO: need more complex algorithm here
         }
-        
+
     }
 }

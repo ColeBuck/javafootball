@@ -5,16 +5,32 @@ import com.cole.javafootball.Team;
 
 public class PuntPlay extends Play {
 
-    public PuntPlay(Game game, Team possession, short currentQuarter, short timeLeftQuarter, short ballPosition, short currentDown, short yardsToGo) {
+    public PuntPlay(Game game, Team possession, short currentQuarter, short timeLeftQuarter, short ballPosition,
+            short currentDown, short yardsToGo) {
         super(game, possession, currentQuarter, timeLeftQuarter, ballPosition, currentDown, yardsToGo);
     }
 
+    public void prePlayDisplay() {
+        game.setPlayDescription(game.getPlayDescription() + "\nThe " + possession.getName() + " are punting");
+    }
+
+    public void postPlayDisplay() {
+
+    }
+
     public void simulatePlay() {
+        game.setCurrentDown((short) 1);
+        game.setYardsToGo((short) 10);
+    }
+
+    public Play createNextPlay() {
         // flip possession
-        if(possession == game.getAwayTeam()) {
-            new ScrimmagePlay(game, game.getHomeTeam(), currentQuarter, timeLeftQuarter, (short) 25, (short) 1, (short) 10);
+        if (possession == game.getAwayTeam()) {
+            return new ScrimmagePlay(game, game.getHomeTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                    (short) 25, game.getCurrentDown(), game.getYardsToGo());
         } else {
-            new ScrimmagePlay(game, game.getAwayTeam(), currentQuarter, timeLeftQuarter, (short) 25, (short) 1, (short) 10);
+            return new ScrimmagePlay(game, game.getAwayTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                    (short) 25, game.getCurrentDown(), game.getYardsToGo());
         }
     }
 }

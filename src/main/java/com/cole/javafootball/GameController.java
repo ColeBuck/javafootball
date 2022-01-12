@@ -23,7 +23,12 @@ public class GameController {
 
     @PutMapping("/games/{id}")
     public String simGame(@PathVariable(value = "id") String id, Model model) {
-        Game.getGameById(id).simGame();
+        Game game = Game.getGameById(id);
+        if (game.currentPhase == Game.Phase.Pregame) {
+            game.startGame();
+        } else {
+            game.simulatePlay();
+        }
         model.addAttribute("game", Game.getGameById(id));
         return "game";
     }
