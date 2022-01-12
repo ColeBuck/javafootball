@@ -1,6 +1,8 @@
 package com.cole.javafootball.plays;
 
+import com.cole.javafootball.DepthChartPosition;
 import com.cole.javafootball.Game;
+import com.cole.javafootball.Player;
 import com.cole.javafootball.Team;
 
 public class PuntPlay extends Play {
@@ -11,16 +13,19 @@ public class PuntPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        game.setPlayDescription(game.getPlayDescription() + "\nThe " + possession.getName() + " are punting");
+        Player punter = possession.getDepthChart().get(DepthChartPosition.P).get(0);
+        game.setPlayDescription(game.getPlayDescription() + " " + punter.getFirstName() + " " + punter.getLastName()
+                + " is punting for the " + possession.getName());
     }
 
     public void postPlayDisplay() {
-
+        game.setPlayDescription("Fair catch.");
     }
 
     public void simulatePlay() {
         game.setCurrentDown((short) 1);
         game.setYardsToGo((short) 10);
+        postPlayDisplay();
     }
 
     public Play createNextPlay() {

@@ -22,7 +22,7 @@ public class ScrimmagePlay extends Play {
         if (touchdown) {
             game.setPlayDescription("The " + possession.getName() + " scored a touchdown!");
         } else {
-            game.setPlayDescription("The " + possession.getName() + " gained " + yardsGained + " yards");
+            game.setPlayDescription("The " + possession.getName() + " gained " + yardsGained + " yards.");
         }
     }
 

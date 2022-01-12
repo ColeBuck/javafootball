@@ -182,6 +182,14 @@ public class Game {
         return yardsToGo;
     }
 
+    public String getYardsToGoString() {
+        if (yardsToGo == 0) {
+            return "inches";
+        } else {
+            return String.valueOf(yardsToGo);
+        }
+    }
+
     public void setYardsToGo(short yards) {
         yardsToGo = yards;
     }

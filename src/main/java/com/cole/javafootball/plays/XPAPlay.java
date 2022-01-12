@@ -2,7 +2,9 @@ package com.cole.javafootball.plays;
 
 import java.util.Random;
 
+import com.cole.javafootball.DepthChartPosition;
 import com.cole.javafootball.Game;
+import com.cole.javafootball.Player;
 import com.cole.javafootball.Team;
 
 public class XPAPlay extends Play {
@@ -15,8 +17,9 @@ public class XPAPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        game.setPlayDescription(
-                game.getPlayDescription() + "\nThe " + possession.getName() + " are attempting an extra point");
+        Player kicker = possession.getDepthChart().get(DepthChartPosition.K).get(0);
+        game.setPlayDescription(game.getPlayDescription() + " " + kicker.getFirstName() + " " + kicker.getLastName()
+                + " is attempting an extra point for the " + possession.getName());
     }
 
     public void postPlayDisplay() {

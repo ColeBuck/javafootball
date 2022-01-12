@@ -14,9 +14,7 @@
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
 
-    <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
-    <p th:text="${game.timeLeftQuarterString}"></p>
-    <p th:text="${game.currentDownString + ' & ' + game.yardsToGo}"></p>
+    <p th:text="${game.playDescription}"></p>
 
     <div class="team">
         <h1 th:text="${game.awayTeam.name}"></h1>
@@ -32,8 +30,10 @@
         <p th:text="${'Total Yards: ' + game.homeYards}"></p>
     </div>
 
-    <button onclick="simGame()">Sim Game</button>
-    <p th:text="${game.playDescription}"></p>
+    <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
+    <p th:text="${game.timeLeftQuarterString}"></p>
+    <p th:text="${game.currentDownString + ' & ' + game.yardsToGoString}"></p>
+    <button onclick="simGame()">Sim Play</button>
 
     <script>
         function simGame() {

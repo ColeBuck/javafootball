@@ -1,6 +1,8 @@
 package com.cole.javafootball.plays;
 
+import com.cole.javafootball.DepthChartPosition;
 import com.cole.javafootball.Game;
+import com.cole.javafootball.Player;
 import com.cole.javafootball.Team;
 
 public class KickoffPlay extends Play {
@@ -11,15 +13,17 @@ public class KickoffPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        game.setPlayDescription(game.getPlayDescription() + "\nThe " + possession.getName() + " are kicking off");
+        Player kicker = possession.getDepthChart().get(DepthChartPosition.K).get(0);
+        game.setPlayDescription(game.getPlayDescription() + " " + kicker.getFirstName() + " " + kicker.getLastName()
+                + " is kicking off for the " + possession.getName());
     }
 
     public void postPlayDisplay() {
-
+        game.setPlayDescription("Touchback.");
     }
 
     public void simulatePlay() {
-
+        postPlayDisplay();
     }
 
     public Play createNextPlay() {
