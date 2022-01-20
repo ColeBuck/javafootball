@@ -42,4 +42,8 @@ public abstract class Play {
         Random rand = new Random();
         return (short) (rand.nextInt(7) + 25);
     }
+
+    public short getQuarter() {
+        return currentQuarter;
+    }
 }

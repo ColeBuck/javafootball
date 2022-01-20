@@ -75,6 +75,17 @@ public class Game {
         }
     }
 
+    public void simulateQuarter() {
+        if (currentPhase == Phase.Active) {
+            Play currentPlay = plays.get(plays.size() - 1);
+            short currentQuarter = currentPlay.getQuarter();
+            while (currentQuarter == currentPlay.getQuarter()) {
+                simulatePlay();
+                currentPlay = plays.get(plays.size() - 1);
+            }
+        }
+    }
+
     // returns coin toss winner
     private Team simulateCoinToss() {
         Random rand = new Random();

@@ -16,9 +16,18 @@ public class GameController {
 
     @GetMapping("/games/{id}")
     public String getGame(@PathVariable(value = "id") String id, Model model) {
-
-        model.addAttribute("game", Game.getGameById(id));
-        return "game";
+        Game game = Game.getGameById(id);
+        model.addAttribute("game", game);
+        switch (game.currentPhase) {
+        case Pregame:
+            return "game_pregame";
+        case Active:
+            return "game_active";
+        case Postgame:
+            return "game_postgame";
+        default:
+            return null;
+        }
     }
 
     @PutMapping("/games/{id}")
@@ -29,8 +38,16 @@ public class GameController {
         } else {
             game.simulatePlay();
         }
-        model.addAttribute("game", Game.getGameById(id));
-        return "game";
+        model.addAttribute("game", game);
+        return "game_active";
+    }
+
+    @PutMapping("/games/{id}/quarter")
+    public String simQuarter(@PathVariable(value = "id") String id, Model model) {
+        Game game = Game.getGameById(id);
+        game.simulateQuarter();
+        model.addAttribute("game", game);
+        return "game_active";
     }
 
     @GetMapping("/games/new")

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/game.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+
+    <p th:text="${game.playDescription}"></p>
+
+    <div class="team">
+        <h1 th:text="${game.awayTeam.name}"></h1>
+        <p th:text="${game.awayScore}"></p>
+        <p th:text="${'Total Yards: ' + game.awayYards}"></p>
+    </div>
+    
+    <div class="team">
+        <h1 th:text="${game.homeTeam.name}"></h1>
+        <p th:text="${game.homeScore}"></p>
+        <p th:text="${'Total Yards: ' + game.homeYards}"></p>
+    </div>
+
+    <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
+    <p th:text="${game.timeLeftQuarterString}"></p>
+    <p th:text="${game.currentDownString + ' & ' + game.yardsToGoString}"></p>
+    <button onclick="simGame()">Sim Play</button>
+    <button onclick="simQuarter()">Sim Quarter</button>
+
+    <script>
+        function simGame() {
+            var request = new XMLHttpRequest();
+            request.open("PUT", window.location.href, true);
+            request.onreadystatechange = function () {
+                location.reload();
+            }
+            request.send();
+        }
+
+        function simQuarter() {
+            var request = new XMLHttpRequest();
+            request.open("PUT", window.location.href + "/quarter", true);
+            request.onreadystatechange = function () {
+                location.reload();
+            }
+            request.send();
+        }
+    </script>
+
+</body>

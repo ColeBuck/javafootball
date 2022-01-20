@@ -14,29 +14,21 @@
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
 
-    <p th:text="${game.playDescription}"></p>
-
     <div class="team">
         <h1 th:text="${game.awayTeam.name}"></h1>
         <p th:text="${'Overall Rating: ' + game.awayTeam.overallRating}"></p>
-        <p th:text="${game.awayScore}"></p>
-        <p th:text="${'Total Yards: ' + game.awayYards}"></p>
     </div>
     
     <div class="team">
         <h1 th:text="${game.homeTeam.name}"></h1>
         <p th:text="${'Overall Rating: ' + game.homeTeam.overallRating}"></p>
-        <p th:text="${game.homeScore}"></p>
-        <p th:text="${'Total Yards: ' + game.homeYards}"></p>
     </div>
 
-    <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
-    <p th:text="${game.timeLeftQuarterString}"></p>
-    <p th:text="${game.currentDownString + ' & ' + game.yardsToGoString}"></p>
-    <button onclick="simGame()">Sim Play</button>
+    <button onclick="startGame()">Start Game</button>
+
 
     <script>
-        function simGame() {
+        function startGame() {
             var request = new XMLHttpRequest();
             request.open("PUT", window.location.href, true);
             request.onreadystatechange = function () {
