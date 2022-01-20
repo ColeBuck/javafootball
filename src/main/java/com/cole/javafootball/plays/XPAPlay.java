@@ -38,6 +38,8 @@ public class XPAPlay extends Play {
                 game.addHomePoints((short) 1);
             }
         }
+        game.setCurrentDown((short) 1);
+        game.setYardsToGo((short) 10);
         postPlayDisplay();
     }
 
