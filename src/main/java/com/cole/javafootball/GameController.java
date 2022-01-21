@@ -31,7 +31,7 @@ public class GameController {
     }
 
     @PutMapping("/games/{id}")
-    public String simGame(@PathVariable(value = "id") String id, Model model) {
+    public String simPlay(@PathVariable(value = "id") String id, Model model) {
         Game game = Game.getGameById(id);
         if (game.currentPhase == Game.Phase.Pregame) {
             game.startGame();
@@ -46,6 +46,14 @@ public class GameController {
     public String simQuarter(@PathVariable(value = "id") String id, Model model) {
         Game game = Game.getGameById(id);
         game.simulateQuarter();
+        model.addAttribute("game", game);
+        return "game_active";
+    }
+
+    @PutMapping("/games/{id}/game")
+    public String simGame(@PathVariable(value = "id") String id, Model model) {
+        Game game = Game.getGameById(id);
+        game.simulateGame();
         model.addAttribute("game", game);
         return "game_active";
     }

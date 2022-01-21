@@ -1,5 +1,7 @@
 package com.cole.javafootball.plays;
 
+import java.util.Random;
+
 import com.cole.javafootball.DepthChartPosition;
 import com.cole.javafootball.Game;
 import com.cole.javafootball.Player;
@@ -29,11 +31,24 @@ public class KickoffPlay extends Play {
     public Play createNextPlay() {
         // flip possession
         if (possession == game.getAwayTeam()) {
-            return new ScrimmagePlay(game, game.getHomeTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
-                    (short) 25, game.getCurrentDown(), game.getYardsToGo());
+            Random rand = new Random();
+            if (rand.nextInt(2) == 0) {
+                return new PassPlay(game, game.getHomeTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
+            } else {
+                return new RunPlay(game, game.getHomeTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
+            }
+
         } else {
-            return new ScrimmagePlay(game, game.getAwayTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
-                    (short) 25, game.getCurrentDown(), game.getYardsToGo());
+            Random rand = new Random();
+            if (rand.nextInt(2) == 0) {
+                return new PassPlay(game, game.getAwayTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
+            } else {
+                return new RunPlay(game, game.getAwayTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
+                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
+            }
         }
     }
 }

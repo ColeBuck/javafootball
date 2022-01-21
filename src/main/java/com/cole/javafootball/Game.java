@@ -67,22 +67,36 @@ public class Game {
         }
     }
 
+    // simulate a single play
     public void simulatePlay() {
         if (currentPhase == Phase.Active) {
             Play currentPlay = plays.get(plays.size() - 1);
             currentPlay.simulatePlay();
-            plays.add(currentPlay.createNextPlay());
+            Play nextPlay = currentPlay.createNextPlay();
+            if (nextPlay != null) {
+                plays.add(nextPlay);
+            } else {
+                this.currentPhase = Phase.Postgame;
+            }
         }
     }
 
+    // simulate rest of the current quarter
     public void simulateQuarter() {
         if (currentPhase == Phase.Active) {
+            short quarterBeingSimmed = currentQuarter;
             Play currentPlay = plays.get(plays.size() - 1);
-            short currentQuarter = currentPlay.getQuarter();
-            while (currentQuarter == currentPlay.getQuarter()) {
+            while (currentPlay.getQuarter() == quarterBeingSimmed && currentPhase == Phase.Active) {
                 simulatePlay();
                 currentPlay = plays.get(plays.size() - 1);
             }
+        }
+    }
+
+    // simulate rest of game
+    public void simulateGame() {
+        while (currentPhase == Phase.Active) {
+            simulateQuarter();
         }
     }
 

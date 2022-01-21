@@ -31,11 +31,12 @@
     <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
     <p th:text="${game.timeLeftQuarterString}"></p>
     <p th:text="${game.currentDownString + ' & ' + game.yardsToGoString}"></p>
-    <button onclick="simGame()">Sim Play</button>
+    <button onclick="simPlay()">Sim Play</button>
     <button onclick="simQuarter()">Sim Quarter</button>
+    <button onclick="simGame()">Sim Game</button>
 
     <script>
-        function simGame() {
+        function simPlay() {
             var request = new XMLHttpRequest();
             request.open("PUT", window.location.href, true);
             request.onreadystatechange = function () {
@@ -47,6 +48,15 @@
         function simQuarter() {
             var request = new XMLHttpRequest();
             request.open("PUT", window.location.href + "/quarter", true);
+            request.onreadystatechange = function () {
+                location.reload();
+            }
+            request.send();
+        }
+
+        function simGame() {
+            var request = new XMLHttpRequest();
+            request.open("PUT", window.location.href + "/game", true);
             request.onreadystatechange = function () {
                 location.reload();
             }
