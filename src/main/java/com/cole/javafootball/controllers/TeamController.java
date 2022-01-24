@@ -1,7 +1,11 @@
-package com.cole.javafootball;
+package com.cole.javafootball.controllers;
 
 import java.util.ArrayList;
 
+import com.cole.javafootball.DepthChartPosition;
+import com.cole.javafootball.Player;
+import com.cole.javafootball.RosterFilterSorter;
+import com.cole.javafootball.Team;
 import com.cole.javafootball.Player.Position;
 
 import org.springframework.stereotype.Controller;

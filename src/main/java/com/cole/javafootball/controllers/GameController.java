@@ -1,6 +1,10 @@
-package com.cole.javafootball;
+package com.cole.javafootball.controllers;
 
 import java.util.UUID;
+
+import com.cole.javafootball.Game;
+import com.cole.javafootball.Team;
+import com.cole.javafootball.Game.Phase;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +22,7 @@ public class GameController {
     public String getGame(@PathVariable(value = "id") String id, Model model) {
         Game game = Game.getGameById(id);
         model.addAttribute("game", game);
-        switch (game.currentPhase) {
+        switch (game.getCurrentPhase()) {
         case Pregame:
             return "game_pregame";
         case Active:
@@ -33,7 +37,7 @@ public class GameController {
     @PutMapping("/games/{id}")
     public String simPlay(@PathVariable(value = "id") String id, Model model) {
         Game game = Game.getGameById(id);
-        if (game.currentPhase == Game.Phase.Pregame) {
+        if (game.getCurrentPhase() == Game.Phase.Pregame) {
             game.startGame();
         } else {
             game.simulatePlay();

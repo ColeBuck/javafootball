@@ -18,7 +18,7 @@ public class Game {
         Pregame, Active, Postgame
     }
 
-    Phase currentPhase = Phase.Pregame;
+    private Phase currentPhase = Phase.Pregame;
 
     private short homeScore;
     private short awayScore;
@@ -108,6 +108,10 @@ public class Game {
         } else {
             return awayTeam;
         }
+    }
+
+    public Phase getCurrentPhase() {
+        return currentPhase;
     }
 
     public Team getAwayTeam() {

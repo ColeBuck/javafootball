@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Player {
 
-    enum Position {
+    public enum Position {
         QB, RB, FB, WR, TE, LT, LG, C, RG, RT, DT, LE, RE, MLB, ROLB, LOLB, CB, FS, SS, K, P, LS;
     }
 
