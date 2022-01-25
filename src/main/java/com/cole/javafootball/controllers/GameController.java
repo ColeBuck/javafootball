@@ -25,6 +25,11 @@ public class GameController {
         case Pregame:
             return "game_pregame";
         case Active:
+            if (game.getOffense().equals(game.getAwayTeam())) {
+                model.addAttribute("possession", "away");
+            } else {
+                model.addAttribute("possession", "home");
+            }
             return "game_active";
         case Postgame:
             return "game_postgame";

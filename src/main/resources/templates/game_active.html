@@ -20,12 +20,14 @@
         <h1 th:text="${game.awayTeam.name}"></h1>
         <p th:text="${game.awayScore}"></p>
         <p th:text="${'Total Yards: ' + game.awayYards}"></p>
+        <img th:if="${possession == 'away'}" src="../static/images/football.png" th:src="@{/images/football.png}" width="100px" alt="football"/>
     </div>
     
     <div class="team">
         <h1 th:text="${game.homeTeam.name}"></h1>
         <p th:text="${game.homeScore}"></p>
         <p th:text="${'Total Yards: ' + game.homeYards}"></p>
+        <img th:if="${possession == 'home'}" src="../static/images/football.png" th:src="@{/images/football.png}" width="100px" alt="football"/>
     </div>
 
     <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
