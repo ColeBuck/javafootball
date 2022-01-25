@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import com.cole.javafootball.Game;
 import com.cole.javafootball.Team;
-import com.cole.javafootball.Game.Phase;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

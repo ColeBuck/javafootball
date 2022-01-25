@@ -13,6 +13,8 @@ public class Game {
 
     private Team homeTeam;
     private Team awayTeam;
+    private Team offense;
+    private Team defense;
 
     public enum Phase {
         Pregame, Active, Postgame
@@ -27,6 +29,7 @@ public class Game {
     private short timeLeftQuarter = 900;
     private short currentDown = 1;
     private short yardsToGo = 10;
+    private short ballPosition = 35;
 
     private String playDescription = "";
 
@@ -60,10 +63,15 @@ public class Game {
             homeScore = 0;
             awayScore = 0;
 
-            Team coinTossWinner = simulateCoinToss();
+            if (simulateCoinToss().equals(awayTeam)) {
+                offense = awayTeam;
+                defense = homeTeam;
+            } else {
+                offense = homeTeam;
+                defense = awayTeam;
+            }
 
-            plays.add(new KickoffPlay(this, coinTossWinner, currentQuarter, timeLeftQuarter, (short) 35, currentDown,
-                    yardsToGo));
+            plays.add(new KickoffPlay(this));
         }
     }
 
@@ -120,6 +128,20 @@ public class Game {
 
     public Team getHomeTeam() {
         return homeTeam;
+    }
+
+    public Team getOffense() {
+        return offense;
+    }
+
+    public Team getDefense() {
+        return defense;
+    }
+
+    public void flipPossession() {
+        Team temp = getOffense();
+        offense = defense;
+        defense = temp;
     }
 
     public short getAwayScore() {
@@ -212,15 +234,29 @@ public class Game {
     }
 
     public String getYardsToGoString() {
-        if (yardsToGo == 0) {
-            return "inches";
-        } else {
-            return String.valueOf(yardsToGo);
-        }
+        return String.valueOf(yardsToGo);
     }
 
     public void setYardsToGo(short yards) {
         yardsToGo = yards;
+    }
+
+    public short getBallPosition() {
+        return ballPosition;
+    }
+
+    public String getBallPositionString() {
+        if (ballPosition < 50) {
+            return getOffense().getAbbreviation() + " " + getBallPosition();
+        } else if (ballPosition > 50) {
+            return getDefense().getAbbreviation() + " " + (100 - getBallPosition());
+        } else {
+            return "50";
+        }
+    }
+
+    public void setBallPosition(short position) {
+        ballPosition = position;
     }
 
     public String getPlayDescription() {

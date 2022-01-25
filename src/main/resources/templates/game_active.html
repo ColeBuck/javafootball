@@ -31,6 +31,7 @@
     <p th:text="${'Quarter: ' + game.currentQuarter}"></p>
     <p th:text="${game.timeLeftQuarterString}"></p>
     <p th:text="${game.currentDownString + ' & ' + game.yardsToGoString}"></p>
+    <p th:text="${game.ballPositionString}"></p>
     <button onclick="simPlay()">Sim Play</button>
     <button onclick="simQuarter()">Sim Quarter</button>
     <button onclick="simGame()">Sim Game</button>

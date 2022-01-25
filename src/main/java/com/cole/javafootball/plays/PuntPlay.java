@@ -5,19 +5,17 @@ import java.util.Random;
 import com.cole.javafootball.DepthChartPosition;
 import com.cole.javafootball.Game;
 import com.cole.javafootball.Player;
-import com.cole.javafootball.Team;
 
 public class PuntPlay extends Play {
 
-    public PuntPlay(Game game, Team possession, short currentQuarter, short timeLeftQuarter, short ballPosition,
-            short currentDown, short yardsToGo) {
-        super(game, possession, currentQuarter, timeLeftQuarter, ballPosition, currentDown, yardsToGo);
+    public PuntPlay(Game game) {
+        super(game);
     }
 
     public void prePlayDisplay() {
-        Player punter = possession.getDepthChart().get(DepthChartPosition.P).get(0);
+        Player punter = game.getOffense().getDepthChart().get(DepthChartPosition.P).get(0);
         game.setPlayDescription(game.getPlayDescription() + " " + punter.getFirstName() + " " + punter.getLastName()
-                + " is punting for the " + possession.getName());
+                + " is punting for the " + game.getOffense().getName());
     }
 
     public void postPlayDisplay() {
@@ -25,32 +23,20 @@ public class PuntPlay extends Play {
     }
 
     public void simulatePlay() {
+        game.flipPossession();
+        game.setBallPosition((short) 25);
         game.setCurrentDown((short) 1);
         game.setYardsToGo((short) 10);
         postPlayDisplay();
     }
 
     public Play createNextPlay() {
-        // flip possession
-        if (possession == game.getAwayTeam()) {
-            Random rand = new Random();
-            if (rand.nextInt(2) == 0) {
-                return new PassPlay(game, game.getHomeTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
-                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
-            } else {
-                return new RunPlay(game, game.getHomeTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
-                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
-            }
-
+        Random rand = new Random();
+        if (rand.nextInt(2) == 0) {
+            return new PassPlay(game);
         } else {
-            Random rand = new Random();
-            if (rand.nextInt(2) == 0) {
-                return new PassPlay(game, game.getAwayTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
-                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
-            } else {
-                return new RunPlay(game, game.getAwayTeam(), game.getCurrentQuarter(), game.getTimeLeftQuarter(),
-                        (short) 25, game.getCurrentDown(), game.getYardsToGo());
-            }
+            return new RunPlay(game);
         }
+
     }
 }
