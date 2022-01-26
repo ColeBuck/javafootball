@@ -80,7 +80,7 @@ public abstract class ScrimmagePlay extends Play {
 
     }
 
-    private short calculateYardsGained() {
+    public short calculateYardsGained() {
         Random rand = new Random();
         float diff = (game.getOffense().getOffenseRating() - game.getDefense().getDefenseRating());
         System.out.println(diff / 50);
