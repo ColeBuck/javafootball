@@ -16,15 +16,40 @@
 
     <div class="team">
         <h1 th:text="${game.awayTeam.name}"></h1>
-        <p th:text="${game.awayScore}"></p>
-        <p th:text="${'Total Yards: ' + game.awayYards}"></p>
+        <p th:text="${'Total Yards: ' + game.stats.get(game.awayTeam).totalYards}"></p>
+        <p th:text="${'Passing Yards: ' + game.stats.get(game.awayTeam).passingYards}"></p>
+        <p th:text="${'Rushing Yards: ' + game.stats.get(game.awayTeam).rushingYards}"></p>
+        <p th:text="${'Punts: ' + game.stats.get(game.awayTeam).punts}"></p>
     </div>
     
     <div class="team">
         <h1 th:text="${game.homeTeam.name}"></h1>
-        <p th:text="${game.homeScore}"></p>
-        <p th:text="${'Total Yards: ' + game.homeYards}"></p>
+        <p th:text="${'Total Yards: ' + game.stats.get(game.homeTeam).totalYards}"></p>
+        <p th:text="${'Passing Yards: ' + game.stats.get(game.homeTeam).passingYards}"></p>
+        <p th:text="${'Rushing Yards: ' + game.stats.get(game.homeTeam).rushingYards}"></p>
+        <p th:text="${'Punts: ' + game.stats.get(game.homeTeam).punts}"></p>
     </div>
 
     <h1>Game over!</h1>
+
+    <table id="scoreboard">
+        <tr>
+            <th></th> <th>Q1</th> <th>Q2</th> <th>Q3</th> <th>Q4</th> <th>Total</th>
+        </tr>
+            <td th:text="${game.awayTeam.name}"></td>
+            <td th:text="${game.stats.get(game.awayTeam).Q1Points}"></td>
+            <td th:text="${game.stats.get(game.awayTeam).Q2Points}"></td>
+            <td th:text="${game.stats.get(game.awayTeam).Q3Points}"></td>
+            <td th:text="${game.stats.get(game.awayTeam).Q4Points}"></td>
+            <td th:text="${game.stats.get(game.awayTeam).totalPoints}"></td>
+        <tr>
+            <td th:text="${game.homeTeam.name}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).Q1Points}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).Q2Points}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).Q3Points}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).Q4Points}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).totalPoints}"></td>
+        </tr>
+    </table>
+
 </body>

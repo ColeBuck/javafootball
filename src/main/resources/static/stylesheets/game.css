@@ -3,3 +3,17 @@ div.team {
   height: 214px;
   float: left;
 }
+
+table {
+  margin: 30px auto;
+  border: 1px solid black;
+  padding: 5px 10px;
+}
+
+td {
+  padding: 5px 20px;
+}
+
+th {
+  padding: 5px 20px;
+}

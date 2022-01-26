@@ -1,6 +1,7 @@
 package com.cole.javafootball;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.cole.javafootball.plays.KickoffPlay;
@@ -22,8 +23,7 @@ public class Game {
 
     private Phase currentPhase = Phase.Pregame;
 
-    private short homeScore;
-    private short awayScore;
+    private HashMap<Team, TeamStats> stats = new HashMap<Team, TeamStats>();
 
     private short currentQuarter = 1;
     private short timeLeftQuarter = 900;
@@ -33,15 +33,14 @@ public class Game {
 
     private String playDescription = "";
 
-    private short homeYards = 0; // testing yards stat here
-    private short awayYards = 0; // testing yards stat here
-
     private ArrayList<Play> plays = new ArrayList<Play>();
 
     public Game(String id, Team homeTeam, Team awayTeam) {
         this.id = id;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        stats.put(homeTeam, new TeamStats());
+        stats.put(awayTeam, new TeamStats());
     }
 
     public static ArrayList<Game> getAllGames() {
@@ -60,8 +59,6 @@ public class Game {
     public void startGame() {
         if (currentPhase == Phase.Pregame) {
             currentPhase = Phase.Active;
-            homeScore = 0;
-            awayScore = 0;
 
             if (simulateCoinToss().equals(awayTeam)) {
                 offense = awayTeam;
@@ -142,38 +139,6 @@ public class Game {
         Team temp = getOffense();
         offense = defense;
         defense = temp;
-    }
-
-    public short getAwayScore() {
-        return awayScore;
-    }
-
-    public void addAwayPoints(short points) {
-        awayScore += points;
-    }
-
-    public short getHomeScore() {
-        return homeScore;
-    }
-
-    public void addHomePoints(short points) {
-        homeScore += points;
-    }
-
-    public short getAwayYards() {
-        return awayYards;
-    }
-
-    public void addAwayYards(short yards) {
-        awayYards += yards;
-    }
-
-    public short getHomeYards() {
-        return homeYards;
-    }
-
-    public void addHomeYards(short yards) {
-        homeYards += yards;
     }
 
     public short getCurrentQuarter() {
@@ -265,5 +230,9 @@ public class Game {
 
     public void setPlayDescription(String description) {
         playDescription = description;
+    }
+
+    public HashMap<Team, TeamStats> getStats() {
+        return stats;
     }
 }

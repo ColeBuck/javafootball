@@ -21,11 +21,7 @@ public class PassPlay extends ScrimmagePlay {
     public void simulatePlay() {
         if (calculatePassCompletion()) {
             yardsGained = calculateYardsGained();
-            if (game.getOffense() == game.getAwayTeam()) {
-                game.addAwayYards(yardsGained);
-            } else {
-                game.addHomeYards(yardsGained);
-            }
+            game.getStats().get(game.getOffense()).addPassingYards(yardsGained);
             game.setYardsToGo((short) (yardsToGo - yardsGained));
 
             // update down
@@ -42,11 +38,7 @@ public class PassPlay extends ScrimmagePlay {
             if (game.getBallPosition() > 99) {
                 touchdown = true;
                 game.setBallPosition((short) 98);
-                if (game.getOffense() == game.getAwayTeam()) {
-                    game.addAwayPoints((short) 6);
-                } else {
-                    game.addHomePoints((short) 6);
-                }
+                game.getStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
             }
 
         } else {

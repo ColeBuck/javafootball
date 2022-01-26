@@ -13,6 +13,33 @@ public class RunPlay extends ScrimmagePlay {
 
     }
 
+    public void simulatePlay() {
+
+        yardsGained = calculateYardsGained();
+        game.getStats().get(game.getOffense()).addRushingYards(yardsGained);
+        game.setYardsToGo((short) (yardsToGo - yardsGained));
+
+        // update down
+        if (game.getYardsToGo() < 1) {
+            game.setCurrentDown((short) 1);
+            game.setYardsToGo((short) 10);
+        } else {
+            game.setCurrentDown((short) (currentDown + 1));
+        }
+
+        game.setBallPosition((short) (ballPosition + yardsGained));
+        game.setTimeLeftQuarter((short) (timeLeftQuarter - calculateClockRunOff())); // update clock
+
+        // check for touchdown
+        if (game.getBallPosition() > 99) {
+            touchdown = true;
+            game.setBallPosition((short) 98);
+            game.getStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
+        }
+
+        postPlayDisplay();
+    }
+
     public void postPlayDisplay() {
         if (touchdown) {
             game.setPlayDescription("The " + game.getOffense().getName() + " scored a touchdown!");

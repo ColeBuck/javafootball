@@ -30,14 +30,11 @@ public class FGAPlay extends Play {
 
     public void simulatePlay() {
         if (calculateFieldGoalAttempt()) {
-            if (game.getOffense() == game.getAwayTeam()) {
-                game.addAwayPoints((short) 3);
-            } else {
-                game.addHomePoints((short) 3);
-            }
+            game.getStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 3);
             game.setBallPosition((short) 35);
         } else {
             game.flipPossession();
+            game.setBallPosition((short) (100 - game.getBallPosition()));
         }
         game.setCurrentDown((short) 1);
         game.setYardsToGo((short) 10);

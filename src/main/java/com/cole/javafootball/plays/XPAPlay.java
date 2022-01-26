@@ -30,11 +30,7 @@ public class XPAPlay extends Play {
 
     public void simulatePlay() {
         if (calculateExtraPointAttempt()) {
-            if (game.getOffense() == game.getAwayTeam()) {
-                game.addAwayPoints((short) 1);
-            } else {
-                game.addHomePoints((short) 1);
-            }
+            game.getStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 1);
         }
         game.setBallPosition((short) 35);
         game.setCurrentDown((short) 1);

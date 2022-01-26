@@ -12,41 +12,6 @@ public abstract class ScrimmagePlay extends Play {
         super(game);
     }
 
-    public void simulatePlay() {
-
-        yardsGained = calculateYardsGained();
-        if (game.getOffense() == game.getAwayTeam()) {
-            game.addAwayYards(yardsGained);
-        } else {
-            game.addHomeYards(yardsGained);
-        }
-        game.setYardsToGo((short) (yardsToGo - yardsGained));
-
-        // update down
-        if (game.getYardsToGo() < 1) {
-            game.setCurrentDown((short) 1);
-            game.setYardsToGo((short) 10);
-        } else {
-            game.setCurrentDown((short) (currentDown + 1));
-        }
-
-        game.setBallPosition((short) (ballPosition + yardsGained));
-        game.setTimeLeftQuarter((short) (timeLeftQuarter - calculateClockRunOff())); // update clock
-
-        // check for touchdown
-        if (game.getBallPosition() > 99) {
-            touchdown = true;
-            game.setBallPosition((short) 98);
-            if (game.getOffense() == game.getAwayTeam()) {
-                game.addAwayPoints((short) 6);
-            } else {
-                game.addHomePoints((short) 6);
-            }
-        }
-
-        postPlayDisplay();
-    }
-
     public Play createNextPlay() {
 
         if (touchdown) {
@@ -75,9 +40,7 @@ public abstract class ScrimmagePlay extends Play {
             } else {
                 return new RunPlay(game);
             }
-
         }
-
     }
 
     public short calculateYardsGained() {

@@ -23,6 +23,7 @@ public class PuntPlay extends Play {
     }
 
     public void simulatePlay() {
+        game.getStats().get(game.getOffense()).addPunt();
         game.flipPossession();
         game.setBallPosition((short) 25);
         game.setCurrentDown((short) 1);
