@@ -13,6 +13,8 @@ public class Team {
 
     private static ArrayList<Team> allTeams = new ArrayList<Team>();
 
+    private Conference conference;
+
     private String city;
     private String name;
     private String abbreviation;
@@ -26,10 +28,13 @@ public class Team {
 
     private ArrayList<Player> activeRoster = new ArrayList<Player>();
 
-    public Team(String city, String name, String abbreviation) {
+    public Team(String city, String name, String abbreviation, String conference) {
         this.city = city;
         this.name = name;
         this.abbreviation = abbreviation;
+        this.conference = Conference.getConferenceByName(conference);
+        this.conference.addTeam(this);
+
         populateRoster();
         fillDepthChart();
         calculateOffenseRating();
@@ -128,6 +133,10 @@ public class Team {
         return null;
     }
 
+    public Conference getConference() {
+        return conference;
+    }
+
     public String getCity() {
         return city;
     }
@@ -179,7 +188,7 @@ public class Team {
 
                 String[] lineData = line.split(",");
 
-                Team temp = new Team(lineData[0], lineData[1], lineData[2]);
+                Team temp = new Team(lineData[0], lineData[1], lineData[2], lineData[3]);
                 // add team to list of all teams
                 allTeams.add(temp);
 

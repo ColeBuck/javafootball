@@ -13,11 +13,15 @@
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
-    <div class="teams-container">
-        <a th:each="team : ${teams}" th:href="@{/teams/} + ${team.name}">
-            <div class="team">
-                <p th:text="${team.city + ' ' + team.name}"></p>
-            </div>
-        </a>
+    <div th:each="conference : ${conferences}">
+        <h2 th:text="${conference.name}"></h2>
+        <div class="teams-container">
+            <a th:each="team : ${conference.teams}" th:href="@{/teams/} + ${team.name}">
+                <div class="team">
+                    <p th:text="${team.city + ' ' + team.name}"></p>
+                </div>
+            </a>
+        </div>
     </div>
+    
 </body>

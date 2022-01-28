@@ -2,6 +2,7 @@ package com.cole.javafootball.controllers;
 
 import java.util.ArrayList;
 
+import com.cole.javafootball.Conference;
 import com.cole.javafootball.DepthChartPosition;
 import com.cole.javafootball.Player;
 import com.cole.javafootball.RosterFilterSorter;
@@ -19,7 +20,7 @@ public class TeamController {
 
     @GetMapping("/teams")
     public String getTeams(Model model) {
-        model.addAttribute("teams", Team.getAllTeams());
+        model.addAttribute("conferences", Conference.getAllConferences());
         return "teams";
     }
 
