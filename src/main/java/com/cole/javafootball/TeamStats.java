@@ -4,6 +4,9 @@ public class TeamStats {
 
     private short[] quarterPoints = new short[4];
 
+    private short totalPlays = 0;
+    private short firstDowns = 0;
+
     private short rushingYards = 0;
     private short passingYards = 0;
 
@@ -50,6 +53,22 @@ public class TeamStats {
             totalPoints += points;
         }
         return totalPoints;
+    }
+
+    public short getTotalPlays() {
+        return totalPlays;
+    }
+
+    public void addPlay() {
+        ++totalPlays;
+    }
+
+    public short getFirstDowns() {
+        return firstDowns;
+    }
+
+    public void addFirstDown() {
+        ++firstDowns;
     }
 
     public short getTotalYards() {

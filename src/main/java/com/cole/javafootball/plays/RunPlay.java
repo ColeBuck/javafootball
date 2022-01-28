@@ -14,6 +14,7 @@ public class RunPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
+        game.getStats().get(game.getOffense()).addPlay();
         if (game.getCurrentDown() == 3) {
             game.getStats().get(game.getOffense()).addThirdDownConversionAttempt();
         }
@@ -23,6 +24,7 @@ public class RunPlay extends ScrimmagePlay {
 
         // update down
         if (game.getYardsToGo() < 1) {
+            game.getStats().get(game.getOffense()).addFirstDown();
             if (game.getCurrentDown() == 3) {
                 game.getStats().get(game.getOffense()).addThirdDownConversion();
             }
