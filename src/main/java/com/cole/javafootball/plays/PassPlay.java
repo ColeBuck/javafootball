@@ -19,6 +19,9 @@ public class PassPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
+        if (game.getCurrentDown() == 3) {
+            game.getStats().get(game.getOffense()).addThirdDownConversionAttempt();
+        }
         if (calculatePassCompletion()) {
             yardsGained = calculateYardsGained();
             game.getStats().get(game.getOffense()).addPassingYards(yardsGained);
@@ -26,6 +29,9 @@ public class PassPlay extends ScrimmagePlay {
 
             // update down
             if (game.getYardsToGo() < 1) {
+                if (game.getCurrentDown() == 3) {
+                    game.getStats().get(game.getOffense()).addThirdDownConversion();
+                }
                 game.setCurrentDown((short) 1);
                 game.setYardsToGo((short) 10);
             } else {

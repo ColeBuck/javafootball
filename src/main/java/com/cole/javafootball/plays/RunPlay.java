@@ -14,13 +14,18 @@ public class RunPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
-
+        if (game.getCurrentDown() == 3) {
+            game.getStats().get(game.getOffense()).addThirdDownConversionAttempt();
+        }
         yardsGained = calculateYardsGained();
         game.getStats().get(game.getOffense()).addRushingYards(yardsGained);
         game.setYardsToGo((short) (yardsToGo - yardsGained));
 
         // update down
         if (game.getYardsToGo() < 1) {
+            if (game.getCurrentDown() == 3) {
+                game.getStats().get(game.getOffense()).addThirdDownConversion();
+            }
             game.setCurrentDown((short) 1);
             game.setYardsToGo((short) 10);
         } else {

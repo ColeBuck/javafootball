@@ -7,6 +7,9 @@ public class TeamStats {
     private short rushingYards = 0;
     private short passingYards = 0;
 
+    private short thirdDownConversions = 0;
+    private short thirdDownConversionAttempts = 0;
+
     private short punts = 0;
 
     public TeamStats() {
@@ -69,12 +72,37 @@ public class TeamStats {
         rushingYards += yards;
     }
 
+    public short getThirdDownConversions() {
+        return thirdDownConversions;
+    }
+
+    public void addThirdDownConversion() {
+        ++thirdDownConversions;
+    }
+
+    public short getThirdDownConversionAttempts() {
+        return thirdDownConversionAttempts;
+    }
+
+    public void addThirdDownConversionAttempt() {
+        ++thirdDownConversionAttempts;
+    }
+
+    public short getThirdDownConversionPercentage() {
+        if (thirdDownConversionAttempts == 0) {
+            return 0;
+        } else {
+            float fraction = (float) thirdDownConversions / (float) thirdDownConversionAttempts;
+            return (short) (fraction * 100);
+        }
+    }
+
     public short getPunts() {
         return punts;
     }
 
     public void addPunt() {
-        punts += 1;
+        ++punts;
     }
 
 }

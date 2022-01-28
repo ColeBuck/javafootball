@@ -21,6 +21,9 @@
         <p th:text="${'Total Yards: ' + game.stats.get(game.awayTeam).totalYards}"></p>
         <p th:text="${'Passing Yards: ' + game.stats.get(game.awayTeam).passingYards}"></p>
         <p th:text="${'Rushing Yards: ' + game.stats.get(game.awayTeam).rushingYards}"></p>
+        <p th:text="${'Third Down Conversions: ' + game.stats.get(game.awayTeam).thirdDownConversions + ' of ' + 
+            game.stats.get(game.awayTeam).thirdDownConversionAttempts + ' (' + 
+            game.stats.get(game.awayTeam).thirdDownConversionPercentage + '%)' }"></p>
         <p th:text="${'Punts: ' + game.stats.get(game.awayTeam).punts}"></p>
         <img th:if="${possession == 'away'}" src="../static/images/football.png" th:src="@{/images/football.png}" width="100px" alt="football"/>
     </div>
@@ -30,6 +33,9 @@
         <p th:text="${'Total Yards: ' + game.stats.get(game.homeTeam).totalYards}"></p>
         <p th:text="${'Passing Yards: ' + game.stats.get(game.homeTeam).passingYards}"></p>
         <p th:text="${'Rushing Yards: ' + game.stats.get(game.homeTeam).rushingYards}"></p>
+        <p th:text="${'Third Down Conversions: ' + game.stats.get(game.homeTeam).thirdDownConversions + ' of ' + 
+            game.stats.get(game.homeTeam).thirdDownConversionAttempts + ' (' + 
+            game.stats.get(game.homeTeam).thirdDownConversionPercentage + '%)' }"></p>
         <p th:text="${'Punts: ' + game.stats.get(game.homeTeam).punts}"></p>
         <img th:if="${possession == 'home'}" src="../static/images/football.png" th:src="@{/images/football.png}" width="100px" alt="football"/>
     </div>
