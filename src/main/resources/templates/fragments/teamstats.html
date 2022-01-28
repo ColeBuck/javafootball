@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+    <table th:fragment="team-stats" id="team-stats">
+        <tr>
+            <th>Team Stats</th> <th th:text="${game.awayTeam.city + ' ' + game.awayTeam.name}"></th> 
+            <th th:text="${game.homeTeam.city + ' ' + game.homeTeam.name}"></th>
+        </tr>
+        <tr>
+            <td>Total Yards</td> <td th:text="${game.stats.get(game.awayTeam).totalYards}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).totalYards}"></td>
+        </tr>
+        <tr>
+            <td>Passing Yards</td> <td th:text="${game.stats.get(game.awayTeam).passingYards}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).passingYards}"></td>
+        </tr>
+        <tr>
+            <td>Rushing Yards</td> <td th:text="${game.stats.get(game.awayTeam).rushingYards}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).rushingYards}"></td>
+        </tr>
+        <tr>
+            <td>3rd Down Conversions</td> <td th:text="${game.stats.get(game.awayTeam).thirdDownConversions + ' of ' + 
+            game.stats.get(game.awayTeam).thirdDownConversionAttempts + ' (' + 
+            game.stats.get(game.awayTeam).thirdDownConversionPercentage + '%)'}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).thirdDownConversions + ' of ' + 
+            game.stats.get(game.homeTeam).thirdDownConversionAttempts + ' (' + 
+            game.stats.get(game.homeTeam).thirdDownConversionPercentage + '%)'}"></td>
+        </tr>
+        <tr>
+            <td>Punts</td> <td th:text="${game.stats.get(game.awayTeam).punts}"></td>
+            <td th:text="${game.stats.get(game.homeTeam).punts}"></td>
+        </tr>
+    </table>
+
+</body>
