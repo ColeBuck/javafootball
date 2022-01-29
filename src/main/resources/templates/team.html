@@ -16,6 +16,7 @@
     <div th:replace="fragments/navbar.html :: navbar"></div>
     <h1 th:text="${team.city + ' ' + team.name}"></h1>
     <i><p th:text="${team.conference.name}"></p></i>
+
     <table>
         <tr>
             <th>Overall</th> <th>Offense</th> <th>Defense</th> <th>Special Teams</th>
@@ -25,6 +26,17 @@
             <td th:text="${team.offenseRating}"></td>
             <td th:text="${team.defenseRating}"></td>
             <td th:text="${team.specialTeamsRating}"></td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>Wins</th> <th>Losses</th> <th>Ties</th>
+        </tr>
+        <tr>
+            <td th:text="${team.record.wins}"></td>
+            <td th:text="${team.record.losses}"></td>
+            <td th:text="${team.record.ties}"></td>
         </tr>
     </table>
   

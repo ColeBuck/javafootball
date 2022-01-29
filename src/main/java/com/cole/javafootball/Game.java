@@ -82,6 +82,16 @@ public class Game {
                 plays.add(nextPlay);
             } else {
                 this.currentPhase = Phase.Postgame;
+                if (stats.get(awayTeam).getTotalPoints() == stats.get(homeTeam).getTotalPoints()) {
+                    awayTeam.getRecord().addTie();
+                    homeTeam.getRecord().addTie();
+                } else if (stats.get(awayTeam).getTotalPoints() > stats.get(homeTeam).getTotalPoints()) {
+                    awayTeam.getRecord().addWin();
+                    homeTeam.getRecord().addLoss();
+                } else if (stats.get(awayTeam).getTotalPoints() < stats.get(homeTeam).getTotalPoints()) {
+                    awayTeam.getRecord().addLoss();
+                    homeTeam.getRecord().addWin();
+                }
             }
         }
     }

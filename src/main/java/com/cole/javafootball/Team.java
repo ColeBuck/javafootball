@@ -24,6 +24,8 @@ public class Team {
     private short defenseRating;
     private short specialTeamsRating;
 
+    private TeamRecord record = new TeamRecord();
+
     private DepthChart depthChart = new DepthChart();
 
     private ArrayList<Player> activeRoster = new ArrayList<Player>();
@@ -163,6 +165,10 @@ public class Team {
 
     public short getSpecialTeamsRating() {
         return specialTeamsRating;
+    }
+
+    public TeamRecord getRecord() {
+        return record;
     }
 
     public ArrayList<Player> getActiveRoster() {
