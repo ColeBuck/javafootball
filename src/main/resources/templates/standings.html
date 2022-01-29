@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/team.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:each="conference : ${conferences}">
+        <h2 th:text="${conference.name + ' Standings'}"></h2>
+        <table>
+            <tr>
+                <th>Team</th> <th>Wins</th> <th>Losses</th> <th>Ties</th> 
+            </tr>
+            <tr th:each="team : ${conference.standings}">
+                <td th:text="${team.city + ' ' + team.name}"></td>
+                <td th:text="${team.record.wins}"></td>
+                <td th:text="${team.record.losses}"></td>
+                <td th:text="${team.record.ties}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
