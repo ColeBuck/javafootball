@@ -30,7 +30,7 @@ public class KickoffPlay extends Play {
 
     public Play createNextPlay() {
         Random rand = new Random();
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(10) < 6) {
             return new PassPlay(game);
         } else {
             return new RunPlay(game);

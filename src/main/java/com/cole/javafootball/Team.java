@@ -47,67 +47,67 @@ public class Team {
 
     public void populateRoster() {
         for (int i = 0; i < 3; i++) {
-            activeRoster.add(new Player(Player.Position.QB));
+            addPlayer(new Player(Player.Position.QB));
         }
         for (int i = 0; i < 3; i++) {
-            activeRoster.add(new Player(Player.Position.RB));
+            addPlayer(new Player(Player.Position.RB));
         }
         for (int i = 0; i < 6; i++) {
-            activeRoster.add(new Player(Player.Position.WR));
+            addPlayer(new Player(Player.Position.WR));
         }
         for (int i = 0; i < 4; i++) {
-            activeRoster.add(new Player(Player.Position.TE));
+            addPlayer(new Player(Player.Position.TE));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.LT));
+            addPlayer(new Player(Player.Position.LT));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.LG));
+            addPlayer(new Player(Player.Position.LG));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.C));
+            addPlayer(new Player(Player.Position.C));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.RG));
+            addPlayer(new Player(Player.Position.RG));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.RT));
+            addPlayer(new Player(Player.Position.RT));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.LE));
+            addPlayer(new Player(Player.Position.LE));
         }
         for (int i = 0; i < 3; i++) {
-            activeRoster.add(new Player(Player.Position.DT));
+            addPlayer(new Player(Player.Position.DT));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.RE));
+            addPlayer(new Player(Player.Position.RE));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.LOLB));
+            addPlayer(new Player(Player.Position.LOLB));
         }
         for (int i = 0; i < 3; i++) {
-            activeRoster.add(new Player(Player.Position.MLB));
+            addPlayer(new Player(Player.Position.MLB));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.ROLB));
+            addPlayer(new Player(Player.Position.ROLB));
         }
         for (int i = 0; i < 6; i++) {
-            activeRoster.add(new Player(Player.Position.CB));
+            addPlayer(new Player(Player.Position.CB));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.FS));
+            addPlayer(new Player(Player.Position.FS));
         }
         for (int i = 0; i < 2; i++) {
-            activeRoster.add(new Player(Player.Position.SS));
+            addPlayer(new Player(Player.Position.SS));
         }
         for (int i = 0; i < 1; i++) {
-            activeRoster.add(new Player(Player.Position.K));
+            addPlayer(new Player(Player.Position.K));
         }
         for (int i = 0; i < 1; i++) {
-            activeRoster.add(new Player(Player.Position.P));
+            addPlayer(new Player(Player.Position.P));
         }
         for (int i = 0; i < 1; i++) {
-            activeRoster.add(new Player(Player.Position.LS));
+            addPlayer(new Player(Player.Position.LS));
         }
     }
 
@@ -173,6 +173,11 @@ public class Team {
 
     public ArrayList<Player> getActiveRoster() {
         return activeRoster;
+    }
+
+    public void addPlayer(Player player) {
+        activeRoster.add(player);
+        player.setTeam(this);
     }
 
     public DepthChart getDepthChart() {

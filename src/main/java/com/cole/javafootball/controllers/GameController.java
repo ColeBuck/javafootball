@@ -30,8 +30,20 @@ public class GameController {
             } else {
                 model.addAttribute("possession", "home");
             }
+            model.addAttribute("away_passers", game.getPassers(game.getAwayTeam()));
+            model.addAttribute("home_passers", game.getPassers(game.getHomeTeam()));
+            model.addAttribute("away_rushers", game.getRushers(game.getAwayTeam()));
+            model.addAttribute("home_rushers", game.getRushers(game.getHomeTeam()));
+            model.addAttribute("away_kickers", game.getKickers(game.getAwayTeam()));
+            model.addAttribute("home_kickers", game.getKickers(game.getHomeTeam()));
             return "game_active";
         case Postgame:
+            model.addAttribute("away_passers", game.getPassers(game.getAwayTeam()));
+            model.addAttribute("home_passers", game.getPassers(game.getHomeTeam()));
+            model.addAttribute("away_rushers", game.getRushers(game.getAwayTeam()));
+            model.addAttribute("home_rushers", game.getRushers(game.getHomeTeam()));
+            model.addAttribute("away_kickers", game.getKickers(game.getAwayTeam()));
+            model.addAttribute("home_kickers", game.getKickers(game.getHomeTeam()));
             return "game_postgame";
         default:
             return null;

@@ -23,7 +23,8 @@ public class Game {
 
     private Phase currentPhase = Phase.Pregame;
 
-    private HashMap<Team, TeamStats> stats = new HashMap<Team, TeamStats>();
+    private HashMap<Team, TeamStats> teamStats = new HashMap<Team, TeamStats>();
+    private HashMap<Player, PlayerStats> playerStats = new HashMap<Player, PlayerStats>();
 
     private short currentQuarter = 1;
     private short timeLeftQuarter = 900;
@@ -39,8 +40,16 @@ public class Game {
         this.id = id;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
-        stats.put(homeTeam, new TeamStats());
-        stats.put(awayTeam, new TeamStats());
+
+        // create stats objects
+        teamStats.put(homeTeam, new TeamStats());
+        teamStats.put(awayTeam, new TeamStats());
+        for (Player player : awayTeam.getActiveRoster()) {
+            playerStats.put(player, new PlayerStats());
+        }
+        for (Player player : homeTeam.getActiveRoster()) {
+            playerStats.put(player, new PlayerStats());
+        }
     }
 
     public static ArrayList<Game> getAllGames() {
@@ -82,13 +91,13 @@ public class Game {
                 plays.add(nextPlay);
             } else {
                 this.currentPhase = Phase.Postgame;
-                if (stats.get(awayTeam).getTotalPoints() == stats.get(homeTeam).getTotalPoints()) {
+                if (teamStats.get(awayTeam).getTotalPoints() == teamStats.get(homeTeam).getTotalPoints()) {
                     awayTeam.getRecord().addTie();
                     homeTeam.getRecord().addTie();
-                } else if (stats.get(awayTeam).getTotalPoints() > stats.get(homeTeam).getTotalPoints()) {
+                } else if (teamStats.get(awayTeam).getTotalPoints() > teamStats.get(homeTeam).getTotalPoints()) {
                     awayTeam.getRecord().addWin();
                     homeTeam.getRecord().addLoss();
-                } else if (stats.get(awayTeam).getTotalPoints() < stats.get(homeTeam).getTotalPoints()) {
+                } else if (teamStats.get(awayTeam).getTotalPoints() < teamStats.get(homeTeam).getTotalPoints()) {
                     awayTeam.getRecord().addLoss();
                     homeTeam.getRecord().addWin();
                 }
@@ -242,7 +251,46 @@ public class Game {
         playDescription = description;
     }
 
-    public HashMap<Team, TeamStats> getStats() {
-        return stats;
+    public HashMap<Team, TeamStats> getTeamStats() {
+        return teamStats;
     }
+
+    public HashMap<Player, PlayerStats> getPlayerStats() {
+        return playerStats;
+    }
+
+    // return all players with at least one pass attempt
+    public ArrayList<Player> getPassers(Team team) {
+        ArrayList<Player> passers = new ArrayList<Player>();
+        for (Player player : playerStats.keySet()) {
+            if (player.getTeam().equals(team) && playerStats.get(player).getPassAttempts() > 0) {
+                passers.add(player);
+            }
+        }
+        return passers;
+    }
+
+    // return all players with at least one run attempt
+    public ArrayList<Player> getRushers(Team team) {
+        ArrayList<Player> rushers = new ArrayList<Player>();
+        for (Player player : playerStats.keySet()) {
+            if (player.getTeam().equals(team) && playerStats.get(player).getRunAttempts() > 0) {
+                rushers.add(player);
+            }
+        }
+        return rushers;
+
+    }
+
+    public ArrayList<Player> getKickers(Team team) {
+        ArrayList<Player> kickers = new ArrayList<Player>();
+        for (Player player : playerStats.keySet()) {
+            if (player.getTeam().equals(team) && playerStats.get(player).getFieldGoalAttempts() > 0) {
+                kickers.add(player);
+            }
+        }
+        return kickers;
+
+    }
+
 }

@@ -35,18 +35,11 @@ public abstract class ScrimmagePlay extends Play {
             }
         } else {
             Random rand = new Random();
-            if (rand.nextInt(2) == 0) { // randomly choose between run and pass (for now)
+            if (rand.nextInt(10) < 6) { // randomly choose between run and pass (for now)
                 return new PassPlay(game);
             } else {
                 return new RunPlay(game);
             }
         }
-    }
-
-    public short calculateYardsGained() {
-        Random rand = new Random();
-        float diff = (game.getOffense().getOffenseRating() - game.getDefense().getDefenseRating());
-        System.out.println(diff / 50);
-        return (short) (rand.nextInt(15) * (diff / 50 + 1)); // TODO: need more complex algorithm here
     }
 }

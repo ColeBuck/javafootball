@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+    <div th:fragment="player-stats" id="player-stats">
+        <table>
+            <tr>
+                <th th:text="${game.awayTeam.name + ' Player Stats'}"></th> <th>Completions</th><th>Attempts</th><th>Passing Yards</th><th>Passing Touchdowns</th>
+            </tr>
+            <tr th:each="player : ${away_passers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).passCompletions}"></td>
+                <td th:text="${game.playerStats.get(player).passAttempts}"></td>
+                <td th:text="${game.playerStats.get(player).passYards}"></td>
+                <td th:text="${game.playerStats.get(player).passTds}"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Carries</th>
+                <th>Rushing Yards</th>
+                <th>Rushing Touchdowns</th>
+            </tr>
+            <tr th:each="player : ${away_rushers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).runAttempts}"></td>
+                <td th:text="${game.playerStats.get(player).runYards}"></td>
+                <td th:text="${game.playerStats.get(player).runTds}"></td>
+            </tr>
+            <tr>
+                <th></th><th>Field Goals Made</th>
+                <th>Fields Goals Attempted</th>
+                <th>Extra Points Made</th>
+                <th>Extra Points Attempted</th>
+            </tr>
+            <tr th:each="player : ${away_kickers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).fieldGoalsMade}"></td>
+                <td th:text="${game.playerStats.get(player).fieldGoalAttempts}"></td>
+                <td th:text="${game.playerStats.get(player).extraPointsMade}"></td>
+                <td th:text="${game.playerStats.get(player).extraPointAttempts}"></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th th:text="${game.homeTeam.name + ' Player Stats'}"></th> <th>Completions</th><th>Attempts</th><th>Passing Yards</th><th>Passing Touchdowns</th>
+            </tr>
+            <tr th:each="player : ${home_passers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).passCompletions}"></td>
+                <td th:text="${game.playerStats.get(player).passAttempts}"></td>
+                <td th:text="${game.playerStats.get(player).passYards}"></td>
+                <td th:text="${game.playerStats.get(player).passTds}"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Carries</th>
+                <th>Rushing Yards</th>
+                <th>Rushing Touchdowns</th>
+            </tr>
+            <tr th:each="player : ${home_rushers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).runAttempts}"></td>
+                <td th:text="${game.playerStats.get(player).runYards}"></td>
+                <td th:text="${game.playerStats.get(player).runTds}"></td>
+            </tr>
+            <tr>
+                <th></th><th>Field Goals Made</th>
+                <th>Fields Goals Attempted</th>
+                <th>Extra Points Made</th>
+                <th>Extra Points Attempted</th>
+            </tr>
+            <tr th:each="player : ${home_kickers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).fieldGoalsMade}"></td>
+                <td th:text="${game.playerStats.get(player).fieldGoalAttempts}"></td>
+                <td th:text="${game.playerStats.get(player).extraPointsMade}"></td>
+                <td th:text="${game.playerStats.get(player).extraPointAttempts}"></td>
+            </tr>
+        </table>
+    </div>
+</body>

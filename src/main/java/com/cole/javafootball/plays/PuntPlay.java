@@ -23,7 +23,7 @@ public class PuntPlay extends Play {
     }
 
     public void simulatePlay() {
-        game.getStats().get(game.getOffense()).addPunt();
+        game.getTeamStats().get(game.getOffense()).addPunt();
         game.flipPossession();
         game.setBallPosition((short) 25);
         game.setCurrentDown((short) 1);
@@ -33,7 +33,7 @@ public class PuntPlay extends Play {
 
     public Play createNextPlay() {
         Random rand = new Random();
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(10) < 6) {
             return new PassPlay(game);
         } else {
             return new RunPlay(game);

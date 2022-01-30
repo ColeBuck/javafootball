@@ -10,36 +10,36 @@
             <th th:text="${game.homeTeam.city + ' ' + game.homeTeam.name}"></th>
         </tr>
         <tr>
-            <td>Total Plays</td> <td th:text="${game.stats.get(game.awayTeam).totalPlays}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).totalPlays}"></td>
+            <td>Total Plays</td> <td th:text="${game.teamStats.get(game.awayTeam).totalPlays}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).totalPlays}"></td>
         </tr>
         <tr>
-            <td>Total Yards</td> <td th:text="${game.stats.get(game.awayTeam).totalYards}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).totalYards}"></td>
+            <td>Total Yards</td> <td th:text="${game.teamStats.get(game.awayTeam).totalYards}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).totalYards}"></td>
         </tr>
         <tr>
-            <td>Passing Yards</td> <td th:text="${game.stats.get(game.awayTeam).passingYards}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).passingYards}"></td>
+            <td>Passing Yards</td> <td th:text="${game.teamStats.get(game.awayTeam).passingYards}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).passingYards}"></td>
         </tr>
         <tr>
-            <td>Rushing Yards</td> <td th:text="${game.stats.get(game.awayTeam).rushingYards}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).rushingYards}"></td>
+            <td>Rushing Yards</td> <td th:text="${game.teamStats.get(game.awayTeam).rushingYards}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).rushingYards}"></td>
         </tr>
         <tr>
-            <td>First Downs</td> <td th:text="${game.stats.get(game.awayTeam).firstDowns}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).firstDowns}"></td>
+            <td>First Downs</td> <td th:text="${game.teamStats.get(game.awayTeam).firstDowns}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).firstDowns}"></td>
         </tr>
         <tr>
-            <td>3rd Down Conversions</td> <td th:text="${game.stats.get(game.awayTeam).thirdDownConversions + ' of ' + 
-            game.stats.get(game.awayTeam).thirdDownConversionAttempts + ' (' + 
-            game.stats.get(game.awayTeam).thirdDownConversionPercentage + '%)'}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).thirdDownConversions + ' of ' + 
-            game.stats.get(game.homeTeam).thirdDownConversionAttempts + ' (' + 
-            game.stats.get(game.homeTeam).thirdDownConversionPercentage + '%)'}"></td>
+            <td>3rd Down Conversions</td> <td th:text="${game.teamStats.get(game.awayTeam).thirdDownConversions + ' of ' + 
+            game.teamStats.get(game.awayTeam).thirdDownConversionAttempts + ' (' + 
+            game.teamStats.get(game.awayTeam).thirdDownConversionPercentage + '%)'}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).thirdDownConversions + ' of ' + 
+            game.teamStats.get(game.homeTeam).thirdDownConversionAttempts + ' (' + 
+            game.teamStats.get(game.homeTeam).thirdDownConversionPercentage + '%)'}"></td>
         </tr>
         <tr>
-            <td>Punts</td> <td th:text="${game.stats.get(game.awayTeam).punts}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).punts}"></td>
+            <td>Punts</td> <td th:text="${game.teamStats.get(game.awayTeam).punts}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).punts}"></td>
         </tr>
     </table>
 

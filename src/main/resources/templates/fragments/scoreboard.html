@@ -9,18 +9,18 @@
             <th>Score</th> <th>Q1</th> <th>Q2</th> <th>Q3</th> <th>Q4</th> <th>Total</th>
         </tr>
             <td th:text="${game.awayTeam.name}"></td>
-            <td th:text="${game.stats.get(game.awayTeam).Q1Points}"></td>
-            <td th:text="${game.stats.get(game.awayTeam).Q2Points}"></td>
-            <td th:text="${game.stats.get(game.awayTeam).Q3Points}"></td>
-            <td th:text="${game.stats.get(game.awayTeam).Q4Points}"></td>
-            <td th:text="${game.stats.get(game.awayTeam).totalPoints}" style="font-weight: bold"></td>
+            <td th:text="${game.teamStats.get(game.awayTeam).Q1Points}"></td>
+            <td th:text="${game.teamStats.get(game.awayTeam).Q2Points}"></td>
+            <td th:text="${game.teamStats.get(game.awayTeam).Q3Points}"></td>
+            <td th:text="${game.teamStats.get(game.awayTeam).Q4Points}"></td>
+            <td th:text="${game.teamStats.get(game.awayTeam).totalPoints}" style="font-weight: bold"></td>
         <tr>
             <td th:text="${game.homeTeam.name}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).Q1Points}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).Q2Points}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).Q3Points}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).Q4Points}"></td>
-            <td th:text="${game.stats.get(game.homeTeam).totalPoints}" style="font-weight: bold"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).Q1Points}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).Q2Points}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).Q3Points}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).Q4Points}"></td>
+            <td th:text="${game.teamStats.get(game.homeTeam).totalPoints}" style="font-weight: bold"></td>
         </tr>
     </table>
 </body>

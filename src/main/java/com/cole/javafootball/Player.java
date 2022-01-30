@@ -14,6 +14,8 @@ public class Player {
     private short height; // inches
     private short weight; // pounds
 
+    private Team team;
+
     private PlayerRatings ratings;
 
     public Player() {
@@ -66,6 +68,14 @@ public class Player {
 
     public PlayerRatings getRatings() {
         return this.ratings;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
 }
