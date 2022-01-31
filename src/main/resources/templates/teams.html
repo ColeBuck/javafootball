@@ -18,10 +18,9 @@
         <div class="teams-container">
             <a th:each="team : ${conference.teams}" th:href="@{/teams/} + ${team.name}">
                 <div class="team">
-                    <p th:text="${team.city + ' ' + team.name}"></p>
+                    <img th:src="@{${'/images/logos/' + team.name + '.png'}}" width="250px">
                 </div>
             </a>
         </div>
     </div>
-    
 </body>
