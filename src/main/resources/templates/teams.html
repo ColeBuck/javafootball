@@ -20,8 +20,8 @@
         <div class="teams-container">
             <a th:each="team : ${conference.teams}" th:href="@{/teams/} + ${team.name}">
                 <div class="team">
-                    <img th:src="@{${'/images/logos/' + team.name + '.png'}}" width="250px">
-                </div>
+                    <img src="${'../static/images/logos/' + team.name + '.png'}" th:src="@{${'/images/logos/' + team.name + '.png'}}" width="250px">
+                </div> 
             </a>
         </div>
     </div>
