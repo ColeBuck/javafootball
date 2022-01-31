@@ -2,9 +2,11 @@ div.navbar {
   margin-bottom: 75px;
   padding-top: 15px;
   padding-bottom: 15px;
+  border-bottom: 2px solid grey;
 }
 
 div.navbar a {
+  font-family: "Sora", sans-serif;
   font-size: 28px;
   text-decoration: none;
   margin-left: 25px;
