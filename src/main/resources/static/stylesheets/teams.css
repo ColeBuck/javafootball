@@ -1,6 +1,9 @@
 h2 {
-  font-family: "Graduate", cursive;
   font-size: 45px;
+}
+
+a {
+  text-decoration: none;
 }
 
 div.teams-container {
@@ -15,12 +18,11 @@ div.team {
 
 img {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border-radius: 8%;
 }
 
 img:hover {
-  transform: scale(
-    1.05
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.1);
 }
 
 @media only screen and (max-width: 1200px) {

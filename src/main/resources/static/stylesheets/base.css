@@ -1,10 +1,9 @@
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Sora", cursive;
   text-align: center;
 }
 
 body {
-  background-color: rgb(240, 240, 240);
   margin: 0;
   padding: 0;
   overflow-y: scroll;
