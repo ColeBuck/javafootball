@@ -25,7 +25,13 @@ public class KickoffPlay extends Play {
     public void simulatePlay() {
         game.flipPossession();
         game.setBallPosition((short) 25);
+
+        updateStats();
         postPlayDisplay();
+    }
+
+    public void updateStats() {
+
     }
 
     public Play createNextPlay() {

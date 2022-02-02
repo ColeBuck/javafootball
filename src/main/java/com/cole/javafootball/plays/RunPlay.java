@@ -16,23 +16,13 @@ public class RunPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
-        game.getTeamStats().get(game.getOffense()).addPlay();
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.RB).get(0)).addRunAttempt();
-        if (game.getCurrentDown() == 3) {
-            game.getTeamStats().get(game.getOffense()).addThirdDownConversionAttempt();
-        }
+
         yardsGained = calculateYardsGained();
-        game.getTeamStats().get(game.getOffense()).addRushingYards(yardsGained);
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.RB).get(0))
-                .addRunYards(yardsGained);
         game.setYardsToGo((short) (yardsToGo - yardsGained));
 
         // update down
         if (game.getYardsToGo() < 1) {
-            game.getTeamStats().get(game.getOffense()).addFirstDown();
-            if (game.getCurrentDown() == 3) {
-                game.getTeamStats().get(game.getOffense()).addThirdDownConversion();
-            }
+            firstDown = true;
             game.setCurrentDown((short) 1);
             game.setYardsToGo((short) 10);
         } else {
@@ -46,11 +36,36 @@ public class RunPlay extends ScrimmagePlay {
         if (game.getBallPosition() > 99) {
             touchdown = true;
             game.setBallPosition((short) 98);
+        }
+
+        updateStats();
+        postPlayDisplay();
+    }
+
+    public void updateStats() {
+
+        game.getTeamStats().get(game.getOffense()).addPlay();
+        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.RB).get(0)).addRunAttempt();
+
+        game.getTeamStats().get(game.getOffense()).addRushingYards(yardsGained);
+        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.RB).get(0))
+                .addRunYards(yardsGained);
+
+        if (currentDown == 3) {
+            game.getTeamStats().get(game.getOffense()).addThirdDownConversionAttempt();
+        }
+
+        if (touchdown) {
             game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
             game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.RB).get(0)).addRunTd();
         }
 
-        postPlayDisplay();
+        if (firstDown) {
+            game.getTeamStats().get(game.getOffense()).addFirstDown();
+            if (currentDown == 3) {
+                game.getTeamStats().get(game.getOffense()).addThirdDownConversion();
+            }
+        }
     }
 
     public void postPlayDisplay() {

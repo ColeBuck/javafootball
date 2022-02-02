@@ -29,12 +29,7 @@ public class FGAPlay extends Play {
     }
 
     public void simulatePlay() {
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
-                .addFieldGoalAttempt();
         if (calculateFieldGoalAttempt()) {
-            game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 3);
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
-                    .addFieldGoalMade();
             game.setBallPosition((short) 35);
         } else {
             game.flipPossession();
@@ -43,7 +38,19 @@ public class FGAPlay extends Play {
         game.setCurrentDown((short) 1);
         game.setYardsToGo((short) 10);
 
+        updateStats();
         postPlayDisplay();
+    }
+
+    public void updateStats() {
+        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
+                .addFieldGoalAttempt();
+
+        if (successful) {
+            game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 3);
+            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
+                    .addFieldGoalMade();
+        }
     }
 
     public Play createNextPlay() {

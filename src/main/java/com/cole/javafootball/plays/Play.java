@@ -20,6 +20,8 @@ public abstract class Play {
 
     public abstract void simulatePlay();
 
+    public abstract void updateStats();
+
     // returns the next play to be run (returns null if game ends)
     public abstract Play createNextPlay();
 

@@ -6,7 +6,8 @@ import com.cole.javafootball.Game;
 
 public abstract class ScrimmagePlay extends Play {
 
-    boolean touchdown; // was touchdown scored on this play?
+    boolean firstDown = false; // was a first down achieved on this play?
+    boolean touchdown = false; // was touchdown scored on this play?
 
     public ScrimmagePlay(Game game) {
         super(game);

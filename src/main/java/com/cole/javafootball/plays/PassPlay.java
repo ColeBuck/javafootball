@@ -19,26 +19,14 @@ public class PassPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
-        game.getTeamStats().get(game.getOffense()).addPlay();
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0)).addPassAttempt();
-        if (game.getCurrentDown() == 3) {
-            game.getTeamStats().get(game.getOffense()).addThirdDownConversionAttempt();
-        }
+
         if (calculatePassCompletion()) {
             yardsGained = calculateYardsGained();
-            game.getTeamStats().get(game.getOffense()).addPassingYards(yardsGained);
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
-                    .addPassCompletion();
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
-                    .addPassYards(yardsGained);
             game.setYardsToGo((short) (yardsToGo - yardsGained));
 
             // update down
             if (game.getYardsToGo() < 1) {
-                game.getTeamStats().get(game.getOffense()).addFirstDown();
-                if (game.getCurrentDown() == 3) {
-                    game.getTeamStats().get(game.getOffense()).addThirdDownConversion();
-                }
+                firstDown = true;
                 game.setCurrentDown((short) 1);
                 game.setYardsToGo((short) 10);
             } else {
@@ -51,9 +39,6 @@ public class PassPlay extends ScrimmagePlay {
             if (game.getBallPosition() > 99) {
                 touchdown = true;
                 game.setBallPosition((short) 98);
-                game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
-                game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
-                        .addPassTd();
             }
 
         } else {
@@ -63,7 +48,37 @@ public class PassPlay extends ScrimmagePlay {
 
         game.setTimeLeftQuarter((short) (timeLeftQuarter - calculateClockRunOff()));
 
+        updateStats();
         postPlayDisplay();
+    }
+
+    public void updateStats() {
+        game.getTeamStats().get(game.getOffense()).addPlay();
+        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0)).addPassAttempt();
+
+        if (currentDown == 3) {
+            game.getTeamStats().get(game.getOffense()).addThirdDownConversionAttempt();
+        }
+
+        if (completed) {
+            game.getTeamStats().get(game.getOffense()).addPassingYards(yardsGained);
+            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
+                    .addPassCompletion();
+            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
+                    .addPassYards(yardsGained);
+        }
+
+        if (touchdown) {
+            game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
+            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0)).addPassTd();
+        }
+
+        if (firstDown) {
+            game.getTeamStats().get(game.getOffense()).addFirstDown();
+            if (currentDown == 3) {
+                game.getTeamStats().get(game.getOffense()).addThirdDownConversion();
+            }
+        }
     }
 
     public void postPlayDisplay() {

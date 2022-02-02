@@ -23,12 +23,17 @@ public class PuntPlay extends Play {
     }
 
     public void simulatePlay() {
-        game.getTeamStats().get(game.getOffense()).addPunt();
         game.flipPossession();
         game.setBallPosition((short) 25);
         game.setCurrentDown((short) 1);
         game.setYardsToGo((short) 10);
+
+        updateStats();
         postPlayDisplay();
+    }
+
+    public void updateStats() {
+        game.getTeamStats().get(game.getOffense()).addPunt();
     }
 
     public Play createNextPlay() {

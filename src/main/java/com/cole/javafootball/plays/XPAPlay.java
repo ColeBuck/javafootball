@@ -29,17 +29,24 @@ public class XPAPlay extends Play {
     }
 
     public void simulatePlay() {
+        calculateExtraPointAttempt();
+        game.setBallPosition((short) 35);
+        game.setCurrentDown((short) 1);
+        game.setYardsToGo((short) 10);
+
+        updateStats();
+        postPlayDisplay();
+    }
+
+    public void updateStats() {
         game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
                 .addExtraPointAttempt();
-        if (calculateExtraPointAttempt()) {
+
+        if (successful) {
             game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 1);
             game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
                     .addExtraPointMade();
         }
-        game.setBallPosition((short) 35);
-        game.setCurrentDown((short) 1);
-        game.setYardsToGo((short) 10);
-        postPlayDisplay();
     }
 
     public Play createNextPlay() {
