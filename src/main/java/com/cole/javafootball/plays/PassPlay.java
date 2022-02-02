@@ -53,42 +53,41 @@ public class PassPlay extends ScrimmagePlay {
     }
 
     public void updateStats() {
-        game.getTeamStats().get(game.getOffense()).addPlay();
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0)).addPassAttempt();
+        game.getTeamStats().get(offense).addPlay();
+        game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0)).addPassAttempt();
 
         if (currentDown == 3) {
-            game.getTeamStats().get(game.getOffense()).addThirdDownConversionAttempt();
+            game.getTeamStats().get(offense).addThirdDownConversionAttempt();
         }
 
         if (completed) {
-            game.getTeamStats().get(game.getOffense()).addPassingYards(yardsGained);
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
-                    .addPassCompletion();
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0))
+            game.getTeamStats().get(offense).addPassingYards(yardsGained);
+            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0)).addPassCompletion();
+            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0))
                     .addPassYards(yardsGained);
         }
 
         if (touchdown) {
-            game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0)).addPassTd();
+            game.getTeamStats().get(offense).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
+            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0)).addPassTd();
         }
 
         if (firstDown) {
-            game.getTeamStats().get(game.getOffense()).addFirstDown();
+            game.getTeamStats().get(offense).addFirstDown();
             if (currentDown == 3) {
-                game.getTeamStats().get(game.getOffense()).addThirdDownConversion();
+                game.getTeamStats().get(offense).addThirdDownConversion();
             }
         }
     }
 
     public void postPlayDisplay() {
         if (touchdown) {
-            game.setPlayDescription("The " + game.getOffense().getName() + " scored a touchdown!");
+            game.setPlayDescription("The " + offense.getName() + " scored a touchdown!");
         } else if (completed) {
-            Player quarterback = game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0);
+            Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
             game.setPlayDescription(quarterback.getFullName() + " passed for " + yardsGained + " yards.");
         } else {
-            Player quarterback = game.getOffense().getDepthChart().get(DepthChartPosition.QB).get(0);
+            Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
             game.setPlayDescription(quarterback.getFullName() + " threw an incomplete pass.");
         }
     }
@@ -106,7 +105,7 @@ public class PassPlay extends ScrimmagePlay {
 
     public short calculateYardsGained() {
         Random rand = new Random();
-        float diff = (game.getOffense().getOffenseRating() - game.getDefense().getDefenseRating());
+        float diff = (offense.getOffenseRating() - defense.getDefenseRating());
         System.out.println(diff / 50);
         return (short) (rand.nextInt(18) * (diff / 50 + 1)); // TODO: need more complex algorithm here
     }

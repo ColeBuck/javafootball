@@ -15,9 +15,9 @@ public class XPAPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        Player kicker = game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0);
+        Player kicker = offense.getDepthChart().get(DepthChartPosition.K).get(0);
         game.setPlayDescription(game.getPlayDescription() + " " + kicker.getFirstName() + " " + kicker.getLastName()
-                + " is attempting an extra point for the " + game.getOffense().getName());
+                + " is attempting an extra point for the " + offense.getName());
     }
 
     public void postPlayDisplay() {
@@ -39,13 +39,11 @@ public class XPAPlay extends Play {
     }
 
     public void updateStats() {
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
-                .addExtraPointAttempt();
+        game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.K).get(0)).addExtraPointAttempt();
 
         if (successful) {
-            game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 1);
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
-                    .addExtraPointMade();
+            game.getTeamStats().get(offense).addQuarterPoints(game.getCurrentQuarter(), (short) 1);
+            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.K).get(0)).addExtraPointMade();
         }
     }
 

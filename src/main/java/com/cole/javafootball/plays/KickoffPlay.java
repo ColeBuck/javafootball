@@ -13,9 +13,9 @@ public class KickoffPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        Player kicker = game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0);
+        Player kicker = offense.getDepthChart().get(DepthChartPosition.K).get(0);
         game.setPlayDescription(game.getPlayDescription() + " " + kicker.getFirstName() + " " + kicker.getLastName()
-                + " is kicking off for the " + game.getOffense().getName());
+                + " is kicking off for the " + offense.getName());
     }
 
     public void postPlayDisplay() {

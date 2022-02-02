@@ -13,9 +13,9 @@ public class PuntPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        Player punter = game.getOffense().getDepthChart().get(DepthChartPosition.P).get(0);
+        Player punter = offense.getDepthChart().get(DepthChartPosition.P).get(0);
         game.setPlayDescription(game.getPlayDescription() + " " + punter.getFirstName() + " " + punter.getLastName()
-                + " is punting for the " + game.getOffense().getName());
+                + " is punting for the " + offense.getName());
     }
 
     public void postPlayDisplay() {
@@ -33,7 +33,7 @@ public class PuntPlay extends Play {
     }
 
     public void updateStats() {
-        game.getTeamStats().get(game.getOffense()).addPunt();
+        game.getTeamStats().get(offense).addPunt();
     }
 
     public Play createNextPlay() {

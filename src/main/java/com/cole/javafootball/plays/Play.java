@@ -3,10 +3,13 @@ package com.cole.javafootball.plays;
 import java.util.Random;
 
 import com.cole.javafootball.Game;
+import com.cole.javafootball.Team;
 
 public abstract class Play {
 
     Game game; // game that this play is associated with
+    Team offense;
+    Team defense;
     short currentQuarter;
     short timeLeftQuarter; // seconds
     short ballPosition; // 1 = OWN 1 yard line, 99 = OPPONENT 1 yard line
@@ -32,6 +35,8 @@ public abstract class Play {
         ballPosition = game.getBallPosition();
         currentDown = game.getCurrentDown();
         yardsToGo = game.getYardsToGo();
+        offense = game.getOffense();
+        defense = game.getDefense();
 
         prePlayDisplay();
     }

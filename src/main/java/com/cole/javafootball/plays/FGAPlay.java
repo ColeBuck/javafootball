@@ -15,9 +15,9 @@ public class FGAPlay extends Play {
     }
 
     public void prePlayDisplay() {
-        Player kicker = game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0);
+        Player kicker = offense.getDepthChart().get(DepthChartPosition.K).get(0);
         game.setPlayDescription(game.getPlayDescription() + " " + kicker.getFirstName() + " " + kicker.getLastName()
-                + " is attempting a field goal for the " + game.getOffense().getName());
+                + " is attempting a field goal for the " + offense.getName());
     }
 
     public void postPlayDisplay() {
@@ -43,13 +43,11 @@ public class FGAPlay extends Play {
     }
 
     public void updateStats() {
-        game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
-                .addFieldGoalAttempt();
+        game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.K).get(0)).addFieldGoalAttempt();
 
         if (successful) {
-            game.getTeamStats().get(game.getOffense()).addQuarterPoints(game.getCurrentQuarter(), (short) 3);
-            game.getPlayerStats().get(game.getOffense().getDepthChart().get(DepthChartPosition.K).get(0))
-                    .addFieldGoalMade();
+            game.getTeamStats().get(offense).addQuarterPoints(game.getCurrentQuarter(), (short) 3);
+            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.K).get(0)).addFieldGoalMade();
         }
     }
 
