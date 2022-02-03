@@ -7,7 +7,11 @@
     <div th:fragment="player-stats" id="player-stats">
         <table>
             <tr>
-                <th th:text="${game.awayTeam.name + ' Player Stats'}"></th> <th>Completions</th><th>Attempts</th><th>Passing Yards</th><th>Passing Touchdowns</th>
+                <th th:text="${game.awayTeam.name + ' Player Stats'}"></th> <th>Completions</th>
+                <th>Attempts</th>
+                <th>Passing Yards</th>
+                <th>Passing Touchdowns</th>
+                <th>Interceptions</th>
             </tr>
             <tr th:each="player : ${away_passers}">
                 <td th:text="${player.firstName + ' ' + player.lastName}"></td>
@@ -15,6 +19,7 @@
                 <td th:text="${game.playerStats.get(player).passAttempts}"></td>
                 <td th:text="${game.playerStats.get(player).passYards}"></td>
                 <td th:text="${game.playerStats.get(player).passTds}"></td>
+                <td th:text="${game.playerStats.get(player).passInts}"></td>
             </tr>
             <tr>
                 <th></th>
@@ -45,7 +50,12 @@
 
         <table>
             <tr>
-                <th th:text="${game.homeTeam.name + ' Player Stats'}"></th> <th>Completions</th><th>Attempts</th><th>Passing Yards</th><th>Passing Touchdowns</th>
+                <th th:text="${game.homeTeam.name + ' Player Stats'}"></th> 
+                <th>Completions</th>
+                <th>Attempts</th>
+                <th>Passing Yards</th>
+                <th>Passing Touchdowns</th>
+                <th>Interceptions</th>
             </tr>
             <tr th:each="player : ${home_passers}">
                 <td th:text="${player.firstName + ' ' + player.lastName}"></td>
@@ -53,6 +63,7 @@
                 <td th:text="${game.playerStats.get(player).passAttempts}"></td>
                 <td th:text="${game.playerStats.get(player).passYards}"></td>
                 <td th:text="${game.playerStats.get(player).passTds}"></td>
+                <td th:text="${game.playerStats.get(player).passInts}"></td>
             </tr>
             <tr>
                 <th></th>

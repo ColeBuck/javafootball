@@ -9,6 +9,7 @@ import com.cole.javafootball.Player;
 public class PassPlay extends ScrimmagePlay {
 
     boolean completed;
+    boolean interception;
 
     public PassPlay(Game game) {
         super(game);
@@ -43,7 +44,14 @@ public class PassPlay extends ScrimmagePlay {
 
         } else {
             yardsGained = 0;
-            game.setCurrentDown((short) (currentDown + 1));
+            if (calculateInterception()) {
+                game.flipPossession();
+                game.setBallPosition((short) (100 - game.getBallPosition()));
+                game.setCurrentDown((short) 1);
+                game.setYardsToGo((short) 10);
+            } else {
+                game.setCurrentDown((short) (currentDown + 1));
+            }
         }
 
         game.setTimeLeftQuarter((short) (timeLeftQuarter - calculateClockRunOff()));
@@ -78,6 +86,10 @@ public class PassPlay extends ScrimmagePlay {
                 game.getTeamStats().get(offense).addThirdDownConversion();
             }
         }
+
+        if (interception) {
+            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0)).addPassInt();
+        }
     }
 
     public void postPlayDisplay() {
@@ -86,6 +98,9 @@ public class PassPlay extends ScrimmagePlay {
         } else if (completed) {
             Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
             game.setPlayDescription(quarterback.getFullName() + " passed for " + yardsGained + " yards.");
+        } else if (interception) {
+            Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
+            game.setPlayDescription(quarterback.getFullName() + " threw an interception!.");
         } else {
             Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
             game.setPlayDescription(quarterback.getFullName() + " threw an incomplete pass.");
@@ -99,6 +114,17 @@ public class PassPlay extends ScrimmagePlay {
             return true;
         } else {
             completed = false;
+            return false;
+        }
+    }
+
+    private boolean calculateInterception() {
+        Random rand = new Random();
+        if (rand.nextInt(10) > 8) {
+            interception = true;
+            return true;
+        } else {
+            interception = false;
             return false;
         }
     }

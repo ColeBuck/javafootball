@@ -6,6 +6,7 @@ public class PlayerStats {
     private short passAttempts = 0;
     private short passYards = 0;
     private short passTds = 0;
+    private short passInts = 0;
 
     private short runAttempts = 0;
     private short runYards = 0;
@@ -54,6 +55,14 @@ public class PlayerStats {
 
     public void addPassTd() {
         ++passTds;
+    }
+
+    public short getPassInts() {
+        return passInts;
+    }
+
+    public void addPassInt() {
+        ++passInts;
     }
 
     public short getRunAttempts() {
