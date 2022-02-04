@@ -31,7 +31,7 @@
     </div>
     <button onclick="createGame()">Create Game</button>
 
-    <script>
+    <script th:inline="javascript">
         function createGame() {
             var awayTeamSelect = document.getElementById("away-team-select")
             var homeTeamSelect = document.getElementById("home-team-select")
@@ -42,16 +42,17 @@
                 alert("Teams must be selected before starting the game!");
             } else {
                 var request = new XMLHttpRequest();
-                request.open('POST', "/games/new?awayTeam=" + awayTeam + "&homeTeam=" + homeTeam, true);
+                request.open('POST', "/leagues/" +  [[${leagueId}]] +  "/games/new?awayTeam=" + awayTeam + "&homeTeam=" + homeTeam, true);
 
                 request.onreadystatechange = function () {
                     if (request.readyState === 4) {
                         console.log(request.status);
                         console.log(request.responseText);
-                        window.location.href="/games/" + request.responseText;
-                    }};
+                        window.location.href="/leagues/" + [[${leagueId}]] + "/games/" + request.responseText;
+                    }
+                };
 
-                    request.send()
+                request.send()
 
             }
         }

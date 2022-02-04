@@ -9,7 +9,6 @@ import com.cole.javafootball.plays.Play;
 
 public class Game {
 
-    public static ArrayList<Game> allGames = new ArrayList<Game>();
     private String id;
 
     private Team homeTeam;
@@ -50,19 +49,6 @@ public class Game {
         for (Player player : homeTeam.getActiveRoster()) {
             playerStats.put(player, new PlayerStats());
         }
-    }
-
-    public static ArrayList<Game> getAllGames() {
-        return allGames;
-    }
-
-    public static Game getGameById(String id) {
-        for (Game game : allGames) {
-            if (game.id.equals(id)) {
-                return game;
-            }
-        }
-        return null;
     }
 
     public void startGame() {
@@ -132,6 +118,10 @@ public class Game {
         } else {
             return awayTeam;
         }
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Phase getCurrentPhase() {

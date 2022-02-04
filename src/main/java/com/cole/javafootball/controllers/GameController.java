@@ -3,7 +3,7 @@ package com.cole.javafootball.controllers;
 import java.util.UUID;
 
 import com.cole.javafootball.Game;
-import com.cole.javafootball.Team;
+import com.cole.javafootball.League;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class GameController {
 
-    @GetMapping("/games/{id}")
-    public String getGame(@PathVariable(value = "id") String id, Model model) {
-        Game game = Game.getGameById(id);
+    @GetMapping("/leagues/{leagueId}/games/{id}")
+    public String getGame(@PathVariable(value = "leagueId") String leagueId, @PathVariable(value = "id") String id,
+            Model model) {
+
+        League league = League.getLeague(leagueId);
+
+        Game game = league.getGameById(id);
+        model.addAttribute("leagueId", leagueId);
         model.addAttribute("game", game);
         switch (game.getCurrentPhase()) {
         case Pregame:
@@ -50,48 +55,58 @@ public class GameController {
         }
     }
 
-    @PutMapping("/games/{id}")
-    public String simPlay(@PathVariable(value = "id") String id, Model model) {
-        Game game = Game.getGameById(id);
+    @PutMapping("/leagues/{leagueId}/games/{id}")
+    public String simPlay(@PathVariable(value = "leagueId") String leagueId, @PathVariable(value = "id") String id,
+            Model model) {
+        League league = League.getLeague(leagueId);
+        Game game = league.getGameById(id);
         if (game.getCurrentPhase() == Game.Phase.Pregame) {
             game.startGame();
         } else {
             game.simulatePlay();
         }
+        model.addAttribute("leagueId", leagueId);
         model.addAttribute("game", game);
         return "game_active";
     }
 
-    @PutMapping("/games/{id}/quarter")
-    public String simQuarter(@PathVariable(value = "id") String id, Model model) {
-        Game game = Game.getGameById(id);
+    @PutMapping("/leagues/{leagueId}/games/{id}/quarter")
+    public String simQuarter(@PathVariable(value = "leagueId") String leagueId, @PathVariable(value = "id") String id,
+            Model model) {
+        League league = League.getLeague(leagueId);
+        Game game = league.getGameById(id);
         game.simulateQuarter();
+        model.addAttribute("leagueId", leagueId);
         model.addAttribute("game", game);
         return "game_active";
     }
 
-    @PutMapping("/games/{id}/game")
-    public String simGame(@PathVariable(value = "id") String id, Model model) {
-        Game game = Game.getGameById(id);
+    @PutMapping("/leagues/{leagueId}/games/{id}/game")
+    public String simGame(@PathVariable(value = "leagueId") String leagueId, @PathVariable(value = "id") String id,
+            Model model) {
+        League league = League.getLeague(leagueId);
+        Game game = league.getGameById(id);
         game.simulateGame();
+        model.addAttribute("leagueId", leagueId);
         model.addAttribute("game", game);
         return "game_active";
     }
 
-    @GetMapping("/games/new")
-    public String getCreateGame(Model model) {
-
-        model.addAttribute("teams", Team.getAllTeams());
+    @GetMapping("/leagues/{leagueId}/games/new")
+    public String getCreateGame(@PathVariable(value = "leagueId") String leagueId, Model model) {
+        League league = League.getLeague(leagueId);
+        model.addAttribute("leagueId", leagueId);
+        model.addAttribute("teams", league.getTeams());
         return "creategame";
     }
 
-    @PostMapping("/games/new")
+    @PostMapping("/leagues/{leagueId}/games/new")
     @ResponseBody
-    public String createGame(@RequestParam(required = true) String awayTeam,
-            @RequestParam(required = true) String homeTeam) {
-
+    public String createGame(@PathVariable(value = "leagueId") String leagueId,
+            @RequestParam(required = true) String awayTeam, @RequestParam(required = true) String homeTeam) {
+        League league = League.getLeague(leagueId);
         String id = UUID.randomUUID().toString();
-        Game.allGames.add(new Game(id, Team.getTeamByName(homeTeam), Team.getTeamByName(awayTeam)));
+        league.addGame(new Game(id, league.getTeamByName(homeTeam), league.getTeamByName(awayTeam)));
         return id;
     }
 }

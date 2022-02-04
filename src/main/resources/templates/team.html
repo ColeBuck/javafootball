@@ -41,7 +41,7 @@
         </tr>
     </table>
   
-    <a th:href="@{/teams/} + ${team.name} + '/depthchart?position=QB'">
+    <a th:href="@{${'/leagues/' + leagueId + '/teams/' + team.name + '/depthchart?position=QB'}}">
         <button>View Depth Chart</button>
     </a>
     <select onChange="filterBy(this);">

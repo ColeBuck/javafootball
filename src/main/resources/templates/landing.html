@@ -12,9 +12,26 @@
 </head>
 
 <body>
-    <div th:replace="fragments/navbar.html :: navbar"></div>
     <h1>Welcome to Java Football!</h1>
     <p>The game is very early in development. Currently, you can: </p>
     <p>Check out the randomly-generated rosters and depth charts</p>
     <p>Simulate a game between two teams of your choice</p>
+    <button onclick="createLeague()">Create League</button>
+
+    <script>
+        function createLeague() {
+            var request = new XMLHttpRequest();
+            request.open('POST', "/leagues", true);
+
+            request.onreadystatechange = function () {
+                    if (request.readyState === 4) {
+                        console.log(request.status);
+                        console.log(request.responseText);
+                        window.location.href="/leagues/" + request.responseText + "/standings";
+                    }
+            };
+
+            request.send()
+        }
+    </script>
 </body>

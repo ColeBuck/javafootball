@@ -1,17 +1,10 @@
 package com.cole.javafootball;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.cole.javafootball.Player.Position;
 
-import org.springframework.core.io.ClassPathResource;
-
 public class Team {
-
-    private static ArrayList<Team> allTeams = new ArrayList<Team>();
 
     private Conference conference;
 
@@ -30,11 +23,11 @@ public class Team {
 
     private ArrayList<Player> activeRoster = new ArrayList<Player>();
 
-    public Team(String city, String name, String abbreviation, String conference) {
+    public Team(String city, String name, String abbreviation, Conference conference) {
         this.city = city;
         this.name = name;
         this.abbreviation = abbreviation;
-        this.conference = Conference.getConferenceByName(conference);
+        this.conference = conference;
         this.conference.addTeam(this);
 
         populateRoster();
@@ -122,19 +115,6 @@ public class Team {
         }
     }
 
-    public static ArrayList<Team> getAllTeams() {
-        return allTeams;
-    }
-
-    public static Team getTeamByName(String name) {
-        for (Team t : allTeams) {
-            if (t.name.equals(name)) {
-                return t;
-            }
-        }
-        return null;
-    }
-
     public Conference getConference() {
         return conference;
     }
@@ -182,35 +162,6 @@ public class Team {
 
     public DepthChart getDepthChart() {
         return depthChart;
-    }
-
-    public static void loadTeamData() {
-
-        try {
-            ClassPathResource classPathResource = new ClassPathResource("static/data/Teams.txt");
-            InputStream inputStream = classPathResource.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-
-            String line = null;
-
-            br.readLine(); // skip the first line
-
-            while ((line = br.readLine()) != null) {
-
-                String[] lineData = line.split(",");
-
-                Team temp = new Team(lineData[0], lineData[1], lineData[2], lineData[3]);
-                // add team to list of all teams
-                allTeams.add(temp);
-
-            }
-
-            br.close();
-
-        } catch (Exception e) {
-            System.out.println("ERROR: Team data could not be loaded");
-        }
-
     }
 
     public void calculateOffenseRating() {

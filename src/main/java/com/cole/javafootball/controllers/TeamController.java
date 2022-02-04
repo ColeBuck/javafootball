@@ -2,8 +2,8 @@ package com.cole.javafootball.controllers;
 
 import java.util.ArrayList;
 
-import com.cole.javafootball.Conference;
 import com.cole.javafootball.DepthChartPosition;
+import com.cole.javafootball.League;
 import com.cole.javafootball.Player;
 import com.cole.javafootball.RosterFilterSorter;
 import com.cole.javafootball.Team;
@@ -18,17 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TeamController {
 
-    @GetMapping("/teams")
-    public String getTeams(Model model) {
-        model.addAttribute("conferences", Conference.getAllConferences());
+    @GetMapping("leagues/{leagueId}/teams")
+    public String getTeams(@PathVariable(value = "leagueId") String leagueId, Model model) {
+        League league = League.getLeague(leagueId);
+        model.addAttribute("leagueId", leagueId);
+        model.addAttribute("conferences", league.getConferences());
         return "teams";
     }
 
-    @GetMapping("teams/{name}")
-    public String getTeam(@PathVariable(value = "name") String name, @RequestParam(required = false) String sortBy,
-            @RequestParam(required = false) String filterBy, Model model) {
+    @GetMapping("leagues/{leagueId}/teams/{name}")
+    public String getTeam(@PathVariable(value = "leagueId") String leagueId, @PathVariable(value = "name") String name,
+            @RequestParam(required = false) String sortBy, @RequestParam(required = false) String filterBy,
+            Model model) {
 
-        Team team = Team.getTeamByName(name);
+        League league = League.getLeague(leagueId);
+        Team team = league.getTeamByName(name);
+
         ArrayList<Player> rosterCopy = new ArrayList<Player>(); // used for sorting and filtering (without modifying the
                                                                 // actual roster)
 
@@ -62,17 +67,20 @@ public class TeamController {
             positions.add(p.toString());
         }
 
+        model.addAttribute("leagueId", leagueId);
         model.addAttribute("team", team);
         model.addAttribute("roster", rosterCopy);
         model.addAttribute("positions", positions);
         return "team";
     }
 
-    @GetMapping("teams/{name}/depthchart")
-    public String getDepthChart(@PathVariable(value = "name") String name,
-            @RequestParam(required = true) String position, Model model) {
+    @GetMapping("leagues/{leagueId}/teams/{name}/depthchart")
+    public String getDepthChart(@PathVariable(value = "leagueId") String leagueId,
+            @PathVariable(value = "name") String name, @RequestParam(required = true) String position, Model model) {
 
-        Team team = Team.getTeamByName(name);
+        League league = League.getLeague(leagueId);
+        Team team = league.getTeamByName(name);
+
         ArrayList<Player> players = new ArrayList<Player>();
         for (Player p : team.getDepthChart().get(DepthChartPosition.valueOf(position))) {
             players.add(p);
@@ -83,6 +91,7 @@ public class TeamController {
             positions.add(p.toString());
         }
 
+        model.addAttribute("leagueId", leagueId);
         model.addAttribute("team", team);
         model.addAttribute("players", players);
         model.addAttribute("positions", positions);
