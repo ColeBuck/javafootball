@@ -8,3 +8,24 @@ body {
   padding: 0;
   overflow-y: scroll;
 }
+
+a.league-link {
+  display: block;
+  margin: 25px 0px;
+}
+
+ul#features {
+  width: 300px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+ul#features li {
+  text-align: left;
+  margin: 18px 0px;
+}
+
+button#create-league {
+  font-size: 20px;
+  margin-bottom: 50px;
+}

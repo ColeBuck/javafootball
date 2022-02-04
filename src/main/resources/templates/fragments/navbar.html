@@ -5,6 +5,7 @@
 
 <body>
     <div th:fragment="navbar" class="navbar">
+        <a href="/">Home</a>
         <a th:href="@{${'/leagues/' + leagueId + '/games/new'}}">Play</a>
         <a th:href="@{${'/leagues/' + leagueId + '/teams/'}}">Teams</a>
         <a th:href="@{${'/leagues/' + leagueId + '/standings/'}}">Standings</a>
