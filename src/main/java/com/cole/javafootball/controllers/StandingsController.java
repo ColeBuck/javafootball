@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class StandingsController {
 
-    @GetMapping("leagues/{leagueId}/standings")
+    @GetMapping("/leagues/{leagueId}/standings")
     public String getStandings(@PathVariable(value = "leagueId") String leagueId, Model model) {
         League league = League.getLeague(leagueId);
         model.addAttribute("conferences", league.getConferences());

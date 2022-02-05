@@ -3,6 +3,7 @@ package com.cole.javafootball;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 import com.cole.javafootball.plays.KickoffPlay;
 import com.cole.javafootball.plays.Play;
@@ -35,8 +36,8 @@ public class Game {
 
     private ArrayList<Play> plays = new ArrayList<Play>();
 
-    public Game(String id, Team homeTeam, Team awayTeam) {
-        this.id = id;
+    public Game(Team homeTeam, Team awayTeam) {
+        this.id = UUID.randomUUID().toString();
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
 

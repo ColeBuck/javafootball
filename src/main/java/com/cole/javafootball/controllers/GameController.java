@@ -1,7 +1,5 @@
 package com.cole.javafootball.controllers;
 
-import java.util.UUID;
-
 import com.cole.javafootball.Game;
 import com.cole.javafootball.League;
 
@@ -105,8 +103,8 @@ public class GameController {
     public String createGame(@PathVariable(value = "leagueId") String leagueId,
             @RequestParam(required = true) String awayTeam, @RequestParam(required = true) String homeTeam) {
         League league = League.getLeague(leagueId);
-        String id = UUID.randomUUID().toString();
-        league.addGame(new Game(id, league.getTeamByName(homeTeam), league.getTeamByName(awayTeam)));
-        return id;
+        Game game = new Game(league.getTeamByName(homeTeam), league.getTeamByName(awayTeam));
+        league.getWeeks().get(0).addGame(game);
+        return game.getId();
     }
 }

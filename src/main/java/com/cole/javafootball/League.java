@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.springframework.core.io.ClassPathResource;
 
@@ -14,20 +15,58 @@ public class League {
 
     private String id;
 
-    ArrayList<Conference> conferences = new ArrayList<Conference>();
-    ArrayList<Team> teams = new ArrayList<Team>();
-    ArrayList<Game> games = new ArrayList<Game>();
+    private ArrayList<Conference> conferences = new ArrayList<Conference>();
+    private ArrayList<Team> teams = new ArrayList<Team>();
+    private ArrayList<Week> weeks = new ArrayList<Week>();
 
-    public League(String id) {
-        this.id = id;
+    public League() {
+        this.id = UUID.randomUUID().toString();
         conferences.add(new Conference("Western Conference"));
         conferences.add(new Conference("Eastern Conference"));
         loadTeamData();
+
+        for (int i = 0; i < 16; i++) {
+            weeks.add(new Week((short) (i + 1)));
+        }
+        loadScheduleData();
+
         allLeagues.put(this.id, this);
+    }
+
+    public void loadScheduleData() {
+        try {
+            ClassPathResource classPathResource = new ClassPathResource("static/data/Schedule.txt");
+            InputStream inputStream = classPathResource.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+            String line = null;
+
+            br.readLine(); // skip the first line
+
+            while ((line = br.readLine()) != null) {
+
+                String[] lineData = line.split(",");
+
+                Integer week = Integer.valueOf(lineData[0]) - 1;
+                Integer awayIndex = Integer.valueOf(lineData[1]) - 1;
+                Integer homeIndex = Integer.valueOf(lineData[2]) - 1;
+
+                weeks.get(week).addGame(new Game(teams.get(homeIndex), teams.get(awayIndex)));
+            }
+
+            br.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static League getLeague(String id) {
         return allLeagues.get(id);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void loadTeamData() {
@@ -66,6 +105,10 @@ public class League {
         return teams;
     }
 
+    public ArrayList<Week> getWeeks() {
+        return weeks;
+    }
+
     public Conference getConferenceByName(String name) {
         for (Conference conference : conferences) {
             if (conference.getName().equals(name)) {
@@ -85,15 +128,13 @@ public class League {
     }
 
     public Game getGameById(String id) {
-        for (Game game : games) {
-            if (game.getId().equals(id)) {
-                return game;
+        for (Week week : weeks) {
+            for (Game game : week.getGames()) {
+                if (game.getId().equals(id)) {
+                    return game;
+                }
             }
         }
         return null;
-    }
-
-    public void addGame(Game game) {
-        games.add(game);
     }
 }
