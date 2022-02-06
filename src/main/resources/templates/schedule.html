@@ -16,8 +16,21 @@
     <div th:replace="fragments/navbar.html :: navbar"></div>
     <div th:each="week,status : ${league.weeks}">
         <h3 th:text="${'Week ' + (status.index + 1)}"></h3>
+        <button th:attr="onclick=|simWeek('${status.index + 1}')|" >Sim Week</button>
         <a th:each="game : ${week.games}" th:href="@{${'/leagues/' + leagueId + '/games/' + game.id}}">
             <p th:text="${game.awayTeam.name + ' vs ' + game.homeTeam.name}"></p>
         </a>
     </div>
+
+    <script>
+        function simWeek(week) {
+            var request = new XMLHttpRequest();
+            var url = "/leagues/" + '[[${leagueId}]]' + "/weeks/" + week;
+            request.open("PUT", url, true);
+            request.onreadystatechange = function () {
+                location.reload();
+            }
+            request.send();
+        }
+    </script>
 </body>
