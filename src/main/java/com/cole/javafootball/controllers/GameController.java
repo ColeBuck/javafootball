@@ -22,7 +22,7 @@ public class GameController {
         League league = League.getLeague(leagueId);
 
         Game game = league.getGameById(id);
-        model.addAttribute("leagueId", leagueId);
+        model.addAttribute("league", league);
         model.addAttribute("game", game);
         switch (game.getCurrentPhase()) {
         case Pregame:
@@ -103,7 +103,7 @@ public class GameController {
     public String createGame(@PathVariable(value = "leagueId") String leagueId,
             @RequestParam(required = true) String awayTeam, @RequestParam(required = true) String homeTeam) {
         League league = League.getLeague(leagueId);
-        Game game = new Game(league.getTeamByName(homeTeam), league.getTeamByName(awayTeam));
+        Game game = new Game(league.getCurrentWeek(), league.getTeamByName(homeTeam), league.getTeamByName(awayTeam));
         league.getWeeks().get(0).addGame(game);
         return game.getId();
     }

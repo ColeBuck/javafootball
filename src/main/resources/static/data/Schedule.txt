@@ -119,4 +119,3 @@ Week    Away Index    Home Index
 16,7,12
 16,8,11
 16,9,10
-

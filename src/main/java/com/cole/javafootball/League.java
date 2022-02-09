@@ -15,6 +15,8 @@ public class League {
 
     private String id;
 
+    private short currentWeek = 1;
+
     private ArrayList<Conference> conferences = new ArrayList<Conference>();
     private ArrayList<Team> teams = new ArrayList<Team>();
     private ArrayList<Week> weeks = new ArrayList<Week>();
@@ -47,11 +49,11 @@ public class League {
 
                 String[] lineData = line.split(",");
 
-                Integer week = Integer.valueOf(lineData[0]) - 1;
-                Integer awayIndex = Integer.valueOf(lineData[1]) - 1;
-                Integer homeIndex = Integer.valueOf(lineData[2]) - 1;
+                int week = Integer.valueOf(lineData[0]) - 1;
+                int awayIndex = Integer.valueOf(lineData[1]) - 1;
+                int homeIndex = Integer.valueOf(lineData[2]) - 1;
 
-                weeks.get(week).addGame(new Game(teams.get(homeIndex), teams.get(awayIndex)));
+                weeks.get(week).addGame(new Game((short) (week + 1), teams.get(homeIndex), teams.get(awayIndex)));
             }
 
             br.close();
@@ -67,6 +69,14 @@ public class League {
 
     public String getId() {
         return id;
+    }
+
+    public short getCurrentWeek() {
+        return currentWeek;
+    }
+
+    public void advanceWeek() {
+        ++currentWeek;
     }
 
     public void loadTeamData() {

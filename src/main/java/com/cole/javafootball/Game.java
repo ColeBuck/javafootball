@@ -11,6 +11,7 @@ import com.cole.javafootball.plays.Play;
 public class Game {
 
     private String id;
+    private short week;
 
     private Team homeTeam;
     private Team awayTeam;
@@ -36,8 +37,9 @@ public class Game {
 
     private ArrayList<Play> plays = new ArrayList<Play>();
 
-    public Game(Team homeTeam, Team awayTeam) {
+    public Game(short week, Team homeTeam, Team awayTeam) {
         this.id = UUID.randomUUID().toString();
+        this.week = week;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
 
@@ -123,6 +125,10 @@ public class Game {
 
     public String getId() {
         return id;
+    }
+
+    public short getWeek() {
+        return week;
     }
 
     public Phase getCurrentPhase() {

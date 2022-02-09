@@ -10,5 +10,24 @@
         <a th:href="@{${'/leagues/' + leagueId + '/teams/'}}">Teams</a>
         <a th:href="@{${'/leagues/' + leagueId + '/standings'}}">Standings</a>
         <a th:href="@{${'/leagues/' + leagueId + '/schedule'}}">Schedule</a>
+        <a href="" onclick="advanceWeek()">Advance Week</a>
+        <script>
+            function advanceWeek() {
+                var request = new XMLHttpRequest();
+                request.open("PUT", "/leagues/[[${leagueId}]]/advance-week", true);
+                request.onreadystatechange = function () {
+                    if (request.readyState === 4) { 
+                        if(request.responseText != "") {
+                            alert(request.responseText)
+                        } else {
+                            window.location.reload() 
+                        }
+                    } 
+                }
+                request.send();
+            }
+        </script>
     </div>
+
+    
 </body>

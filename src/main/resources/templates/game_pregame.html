@@ -25,7 +25,7 @@
         <p th:text="${'Overall Rating: ' + game.homeTeam.overallRating}"></p>
     </div>
 
-    <button onclick="startGame()">Start Game</button>
+    <button th:if="${game.week == league.currentWeek}" onclick="startGame()">Start Game</button>
 
 
     <script>
