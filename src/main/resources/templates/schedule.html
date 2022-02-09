@@ -25,7 +25,7 @@
         <h3 th:text="${'Week ' + (status.index + 1)}"></h3>
         <a th:each="game : ${week.games}" th:href="@{${'/leagues/' + leagueId + '/games/' + game.id}}" class="game">
             <span class="left" th:text="${game.teamStats.get(game.awayTeam).totalPoints}"></span>
-            <span th:text="${game.homeTeam.name + ' @ ' + game.awayTeam.name}"></span>
+            <span th:text="${game.awayTeam.name + ' @ ' + game.homeTeam.name}"></span>
             <span class="right" th:text="${game.teamStats.get(game.homeTeam).totalPoints}"></span>
         </a>
     </div>
