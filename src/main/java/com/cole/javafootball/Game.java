@@ -151,6 +151,20 @@ public class Game {
         return defense;
     }
 
+    public Team getWinner() {
+        if (currentPhase != Phase.Postgame) {
+            return null;
+        } else {
+            if (teamStats.get(awayTeam).getTotalPoints() == teamStats.get(homeTeam).getTotalPoints()) {
+                return null;
+            } else if (teamStats.get(awayTeam).getTotalPoints() > teamStats.get(homeTeam).getTotalPoints()) {
+                return awayTeam;
+            } else {
+                return homeTeam;
+            }
+        }
+    }
+
     public void flipPossession() {
         Team temp = getOffense();
         offense = defense;

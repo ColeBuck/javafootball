@@ -17,3 +17,19 @@ p.week-label {
   font-style: italic;
   margin: 15px 0 5px 0;
 }
+
+a.game.win {
+  background-color: rgb(21, 126, 21);
+}
+
+a.game.win:hover {
+  background-color: rgb(21, 126, 21);
+}
+
+a.game.loss {
+  background-color: rgb(219, 20, 20);
+}
+
+a.game.loss:hover {
+  background-color: rgb(219, 20, 20);
+}
