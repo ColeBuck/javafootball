@@ -3,10 +3,12 @@ package com.cole.javafootball.controllers;
 import java.util.ArrayList;
 
 import com.cole.javafootball.DepthChartPosition;
+import com.cole.javafootball.Game;
 import com.cole.javafootball.League;
 import com.cole.javafootball.Player;
 import com.cole.javafootball.RosterFilterSorter;
 import com.cole.javafootball.Team;
+import com.cole.javafootball.Week;
 import com.cole.javafootball.Player.Position;
 
 import org.springframework.stereotype.Controller;
@@ -67,8 +69,19 @@ public class TeamController {
             positions.add(p.toString());
         }
 
+        // fetch all of a team's games
+        ArrayList<Game> schedule = new ArrayList<Game>();
+        for (Week week : league.getWeeks()) {
+            for (Game game : week.getGames()) {
+                if (game.getAwayTeam().equals(team) || game.getHomeTeam().equals(team)) {
+                    schedule.add(game);
+                }
+            }
+        }
+
         model.addAttribute("leagueId", leagueId);
         model.addAttribute("team", team);
+        model.addAttribute("schedule", schedule);
         model.addAttribute("roster", rosterCopy);
         model.addAttribute("positions", positions);
         return "team";
