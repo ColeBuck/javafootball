@@ -10,6 +10,7 @@
     <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/team.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
 </head>
 
 <body>
@@ -28,4 +29,5 @@
             </tr>
         </table>
     </div>
+    <div th:replace="fragments/ticker.html :: ticker"></div>
 </body>

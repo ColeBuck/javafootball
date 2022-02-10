@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+    <div th:fragment="ticker" class="ticker">
+        <p class="ticker-label" th:text="${'Week ' + league.currentWeek + ' Scores'}"></p>
+        <p class="ticker-content">
+            <span th:each="game : ${league.getWeeks.get(league.currentWeek - 1).games}" 
+            th:text="${game.awayTeam.name + ' ' + game.teamStats.get(game.awayTeam).totalPoints + ' - ' + 
+            game.homeTeam.name + ' ' + game.teamStats.get(game.homeTeam).totalPoints}"></span>
+        </p>
+    </div>
+</body>

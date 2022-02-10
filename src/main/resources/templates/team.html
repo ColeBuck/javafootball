@@ -11,6 +11,7 @@
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/team.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/schedule.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
    
 </head>
 
@@ -83,6 +84,7 @@
             <p class="week-label" th:text="${'Week ' + game.week}"></p>
         </a>
     </div>
+    <div th:replace="fragments/ticker.html :: ticker"></div>
 
     <script>
         function filterBy(selectBox) {

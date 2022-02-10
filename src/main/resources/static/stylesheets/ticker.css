@@ -1,0 +1,49 @@
+.ticker {
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: dodgerblue;
+  color: white;
+}
+
+.ticker p {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 50px;
+}
+
+p.ticker-label {
+  position: relative;
+  z-index: 1;
+  float: left;
+  background-color: black;
+}
+
+p.ticker-content {
+  position: fixed;
+  white-space: nowrap;
+  animation-name: ticker;
+  animation-fill-mode: both;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+p.ticker-content span {
+  margin: 0 25px;
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(30%, 0, 0);
+    transform: translate3d(30%, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-125%, 0, 0);
+    transform: translate3d(-125%, 0, 0);
+  }
+}

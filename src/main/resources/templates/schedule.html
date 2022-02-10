@@ -10,6 +10,7 @@
     <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/schedule.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
 </head>
 
 <body>
@@ -29,7 +30,7 @@
             <span class="right" th:text="${game.teamStats.get(game.homeTeam).totalPoints}"></span>
         </a>
     </div>
-
+    <div th:replace="fragments/ticker.html :: ticker"></div>
     
     <script>
         // populate combo box

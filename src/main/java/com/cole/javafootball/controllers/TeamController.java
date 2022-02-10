@@ -23,7 +23,7 @@ public class TeamController {
     @GetMapping("leagues/{leagueId}/teams")
     public String getTeams(@PathVariable(value = "leagueId") String leagueId, Model model) {
         League league = League.getLeague(leagueId);
-        model.addAttribute("leagueId", leagueId);
+        model.addAttribute("league", league);
         model.addAttribute("conferences", league.getConferences());
         return "teams";
     }
@@ -79,7 +79,7 @@ public class TeamController {
             }
         }
 
-        model.addAttribute("leagueId", leagueId);
+        model.addAttribute("league", league);
         model.addAttribute("team", team);
         model.addAttribute("schedule", schedule);
         model.addAttribute("roster", rosterCopy);
