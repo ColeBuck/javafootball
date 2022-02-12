@@ -10,10 +10,13 @@
     <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/creategame.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
 </head>
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
+    
     <h1>New Game</h1>
     <div class="team-select">
         <p>Away Team</p>

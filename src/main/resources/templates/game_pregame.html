@@ -10,10 +10,12 @@
     <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/game.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
 </head>
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
 
     <div class="team">
         <h1 th:text="${game.awayTeam.name}"></h1>

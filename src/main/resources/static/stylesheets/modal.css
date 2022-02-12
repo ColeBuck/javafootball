@@ -1,0 +1,40 @@
+div#modal {
+  border: 2px solid grey;
+  border-radius: 20px;
+  z-index: 1;
+  position: fixed;
+  width: 60%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 200px;
+  background: dodgerblue;
+  padding: 15px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 200ms ease-in;
+}
+
+div#modal p {
+  color: white;
+  font-size: 24px;
+}
+
+div#modal button {
+  margin-top: 25px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 20px;
+  transition-duration: 200ms;
+}
+
+div#modal button:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+div#modal.visible {
+  visibility: visible;
+  opacity: 1;
+}

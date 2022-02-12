@@ -16,6 +16,7 @@ div.navbar a {
   margin: 0;
   padding: 10px 20px;
   transition-duration: 200ms;
+  cursor: pointer;
 }
 
 div.navbar a:hover {

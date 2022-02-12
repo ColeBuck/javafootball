@@ -10,7 +10,7 @@
         <a th:href="@{${'/leagues/' + leagueId + '/teams/'}}">Teams</a>
         <a th:href="@{${'/leagues/' + leagueId + '/standings'}}">Standings</a>
         <a th:href="@{${'/leagues/' + leagueId + '/schedule'}}">Schedule</a>
-        <a href="" onclick="advanceWeek()">Advance Week</a>
+        <a onclick="advanceWeek()">Advance Week</a>
         <script>
             function advanceWeek() {
                 var request = new XMLHttpRequest();
@@ -18,13 +18,21 @@
                 request.onreadystatechange = function () {
                     if (request.readyState === 4) { 
                         if(request.responseText != "") {
-                            alert(request.responseText)
+                            showModal(request.responseText)
                         } else {
                             window.location.reload() 
                         }
                     } 
                 }
                 request.send();
+            }
+            
+            function showModal(text) {
+                const modal = document.getElementById("modal");
+                modal.classList.add("visible");
+
+                const modalText = document.getElementById("modal-text");
+                modalText.innerHTML = text;
             }
         </script>
     </div>

@@ -28,7 +28,7 @@ public class LeagueController {
             league.advanceWeek();
             return "";
         } else {
-            return "All of the current week's games must be simmed first!";
+            return "There are still unplayed games this week! Go to the schedule page to simulate them.";
         }
     }
 }

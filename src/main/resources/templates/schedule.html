@@ -11,10 +11,12 @@
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/schedule.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
 </head>
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
 
     <select id="select-week" onchange="toggleWeek()">
         <option selected disabled value="">Select Week</option>

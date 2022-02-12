@@ -12,11 +12,14 @@
     <link th:href="@{/stylesheets/team.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/schedule.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
    
 </head>
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
+    
     <h1 th:text="${team.city + ' ' + team.name}"></h1>
     <i><p th:text="${team.conference.name}"></p></i>
 

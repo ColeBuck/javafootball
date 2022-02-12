@@ -12,10 +12,13 @@
     <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/teams.css}" rel="stylesheet" />
     <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
 </head>
 
 <body>
     <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
+
     <div th:each="conference : ${conferences}">
         <h2 th:text="${conference.name}"></h2>
         <div class="teams-container">

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+    <div th:fragment="modal" id="modal">
+        <p id="modal-text"></p>
+        <button onclick="hideModal()">Close</button>
+        <script>
+            function hideModal() {
+                const modal = document.getElementById("modal");
+                modal.classList.remove("visible");
+            }
+        </script>
+    </div>
+
+</body>
