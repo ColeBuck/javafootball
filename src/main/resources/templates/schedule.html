@@ -24,7 +24,7 @@
 
 
     <div th:id="${'week-' + (status.index + 1)}" class="week" th:each="week,status : ${league.weeks}">
-        <button th:if="${league.currentWeek == (status.index + 1)}" class="sim-week" th:attr="onclick=|simWeek('${status.index + 1}')|" >Sim Week</button>
+        <button th:if="${league.currentWeek == (status.index + 1)}" class="sim-week" th:attr="onclick=|simWeek('${status.index + 1}')|" >Simulate Week</button>
         <h3 th:text="${'Week ' + (status.index + 1)}"></h3>
         <a th:each="game : ${week.games}" th:href="@{${'/leagues/' + leagueId + '/games/' + game.id}}" class="game">
             <span class="left" th:text="${game.teamStats.get(game.awayTeam).totalPoints}"></span>

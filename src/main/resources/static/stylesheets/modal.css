@@ -1,5 +1,5 @@
 div#modal {
-  border: 2px solid grey;
+  border: 5px solid rgb(13, 76, 139);
   border-radius: 20px;
   z-index: 1;
   position: fixed;
@@ -21,17 +21,18 @@ div#modal p {
 
 div#modal button {
   margin-top: 25px;
-  background-color: white;
-  border: 1px solid black;
-  padding: 10px;
+  background-color: rgb(13, 76, 139);
+  color: white;
+  border: none;
+  padding: 15px 30px;
   font-size: 20px;
   transition-duration: 200ms;
+  border-radius: 10px;
 }
 
 div#modal button:hover {
-  background-color: black;
-  color: white;
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 div#modal.visible {
