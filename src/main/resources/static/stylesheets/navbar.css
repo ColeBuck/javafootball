@@ -1,23 +1,23 @@
 div.navbar {
+  margin: 0;
   margin-bottom: 75px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid grey;
+  background-color: dodgerblue;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 
 div.navbar a {
-  color: black;
+  display: inline-block;
+  background-color: rgb(30, 144, 255);
+  color: white;
   font-family: "Sora", sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   text-decoration: none;
-  margin-left: 25px;
-  margin-right: 25px;
+  margin: 0;
+  padding: 10px 20px;
+  transition-duration: 200ms;
 }
 
 div.navbar a:hover {
-  text-decoration: underline;
-}
-
-div.navbar a:visited {
-  text-decoration: none;
+  background-color: rgb(13, 76, 139);
 }
