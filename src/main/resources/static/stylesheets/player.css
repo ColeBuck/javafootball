@@ -1,0 +1,9 @@
+div#player-info {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+div#player-info p {
+  display: inline-block;
+  margin: 15px 25px;
+}

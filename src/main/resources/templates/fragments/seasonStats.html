@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+    <table th:fragment="passing-stats">
+        <tr>
+            <th>Opponent</th>
+            <th>Completions</th>
+            <th>Attempts</th>
+            <th>Passing Yards</th>
+            <th>Passing Touchdowns</th>
+            <th>Passing Interceptions</th>
+        </tr>
+        <tr th:each="game : ${player.stats}">
+            <td th:if="${player.team.name != game.game.awayTeam.name}" th:text="${game.game.awayTeam.name}"></td>
+            <td th:if="${player.team.name != game.game.homeTeam.name}" th:text="${game.game.homeTeam.name}"></td>
+            <td th:text="${game.passCompletions}"></td>
+            <td th:text="${game.passAttempts}"></td>
+            <td th:text="${game.passYards}"></td>
+            <td th:text="${game.passTds}"></td>
+            <td th:text="${game.passInts}"></td>
+        </tr>
+    </table>
+    <table th:fragment="rushing-stats">
+        <tr>
+            <th>Opponent</th>
+            <th>Rushing Attempts</th>
+            <th>Rushing Yards</th>
+            <th>Rushing Touchdowns</th>
+        </tr>
+        <tr th:each="game : ${player.stats}">
+            <td th:if="${player.team.name != game.game.awayTeam.name}" th:text="${game.game.awayTeam.name}"></td>
+            <td th:if="${player.team.name != game.game.homeTeam.name}" th:text="${game.game.homeTeam.name}"></td>
+            <td th:text="${game.runAttempts}"></td>
+            <td th:text="${game.runYards}"></td>
+            <td th:text="${game.runTds}"></td>
+        </tr>
+    </table>
+</body>

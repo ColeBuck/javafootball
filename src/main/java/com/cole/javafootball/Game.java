@@ -46,17 +46,25 @@ public class Game {
         // create stats objects
         teamStats.put(homeTeam, new TeamStats());
         teamStats.put(awayTeam, new TeamStats());
-        for (Player player : awayTeam.getActiveRoster()) {
-            playerStats.put(player, new PlayerStats());
-        }
-        for (Player player : homeTeam.getActiveRoster()) {
-            playerStats.put(player, new PlayerStats());
-        }
     }
 
     public void startGame() {
         if (currentPhase == Phase.Pregame) {
             currentPhase = Phase.Active;
+
+            // create stats objects
+            for (Player player : awayTeam.getActiveRoster()) {
+                PlayerStats pStats = new PlayerStats(this);
+
+                player.getStats().add(pStats); // add stats object to player
+                playerStats.put(player, pStats); // add stats object to game
+            }
+            for (Player player : homeTeam.getActiveRoster()) {
+                PlayerStats pStats = new PlayerStats(this);
+
+                player.getStats().add(pStats); // add stats object to player
+                playerStats.put(player, pStats); // add stats object to game
+            }
 
             if (simulateCoinToss().equals(awayTeam)) {
                 offense = awayTeam;

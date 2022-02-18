@@ -1,12 +1,16 @@
 package com.cole.javafootball;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.UUID;
 
 public class Player {
 
     public enum Position {
         QB, RB, FB, WR, TE, LT, LG, C, RG, RT, DT, LE, RE, MLB, ROLB, LOLB, CB, FS, SS, K, P, LS;
     }
+
+    private String id;
 
     private String firstName;
     private String lastName;
@@ -18,7 +22,10 @@ public class Player {
 
     private PlayerRatings ratings;
 
+    private ArrayList<PlayerStats> stats = new ArrayList<PlayerStats>();
+
     public Player() {
+        id = UUID.randomUUID().toString();
         position = Position.values()[new Random().nextInt(Position.values().length)];
         ratings = new PlayerRatings(position);
 
@@ -30,6 +37,7 @@ public class Player {
     }
 
     public Player(Position position) {
+        id = UUID.randomUUID().toString();
         this.position = position;
         ratings = new PlayerRatings(this.position);
 
@@ -38,6 +46,10 @@ public class Player {
         height = PlayerGeneration.generateHeight(position);
         weight = PlayerGeneration.generateWeight(position);
         PlayerGeneration.generateRatings(this);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -67,7 +79,11 @@ public class Player {
     }
 
     public PlayerRatings getRatings() {
-        return this.ratings;
+        return ratings;
+    }
+
+    public ArrayList<PlayerStats> getStats() {
+        return stats;
     }
 
     public Team getTeam() {

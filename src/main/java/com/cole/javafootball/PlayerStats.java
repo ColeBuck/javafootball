@@ -2,6 +2,8 @@ package com.cole.javafootball;
 
 public class PlayerStats {
 
+    private Game game;
+
     private short passCompletions = 0;
     private short passAttempts = 0;
     private short passYards = 0;
@@ -21,8 +23,12 @@ public class PlayerStats {
     private short extraPointsMade = 0;
     private short extraPointAttempts = 0;
 
-    public PlayerStats() {
+    public PlayerStats(Game game) {
+        this.game = game;
+    }
 
+    public Game getGame() {
+        return game;
     }
 
     public short getPassCompletions() {

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/player.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/team.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
+    <h1 th:text="${player.firstName + ' ' + player.lastName}"></h1>
+    <i><p th:text="${player.team.city + ' ' + player.team.name}"></p></i>
+    <div id="player-info">
+        <p th:text="${player.position}"></p>
+        <p th:text="${player.height}"></p>
+        <p th:text="${player.weight}"></p>
+        <p th:text="${player.ratings.get('Overall')}"></p>
+    </div>
+    <th:block th:switch="${player.position}">
+        <div th:case="'QB'">
+            <h2>Season Stats</h2>
+            <table th:replace="fragments/seasonStats :: passing-stats"></table>
+        </div>
+        <div th:case="'RB'">
+            <h2>Season Stats</h2>
+            <table th:replace="fragments/seasonStats :: rushing-stats"></table>
+        </div>
+    </th:block>
+    
+    <div th:replace="fragments/ticker.html :: ticker"></div>
+</body>

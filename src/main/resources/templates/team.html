@@ -71,7 +71,9 @@
             <th>Rating</th>
         </tr>
         <tr th:each="player : ${roster}">
-            <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+            <td>
+                <a th:href="${team.name + '/players/' + player.id}" th:text="${player.firstName + ' ' + player.lastName}"></a>
+            </td>
             <td th:text="${player.position}"></td>
             <td th:text="${player.height}"></td>
             <td th:text="${player.weight}"></td>
