@@ -8,6 +8,7 @@ public class Conference {
 
     private String name;
     private ArrayList<Team> teams = new ArrayList<Team>();
+    private ArrayList<Team> playoffTeams = new ArrayList<Team>();
 
     public Conference(String name) {
         this.name = name;
@@ -19,6 +20,10 @@ public class Conference {
 
     public ArrayList<Team> getTeams() {
         return teams;
+    }
+
+    public ArrayList<Team> getPlayoffTeams() {
+        return playoffTeams;
     }
 
     public ArrayList<Team> getStandings() {

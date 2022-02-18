@@ -87,17 +87,7 @@ public class Game {
             if (nextPlay != null) {
                 plays.add(nextPlay);
             } else {
-                this.currentPhase = Phase.Postgame;
-                if (teamStats.get(awayTeam).getTotalPoints() == teamStats.get(homeTeam).getTotalPoints()) {
-                    awayTeam.getRecord().addTie();
-                    homeTeam.getRecord().addTie();
-                } else if (teamStats.get(awayTeam).getTotalPoints() > teamStats.get(homeTeam).getTotalPoints()) {
-                    awayTeam.getRecord().addWin();
-                    homeTeam.getRecord().addLoss();
-                } else if (teamStats.get(awayTeam).getTotalPoints() < teamStats.get(homeTeam).getTotalPoints()) {
-                    awayTeam.getRecord().addLoss();
-                    homeTeam.getRecord().addWin();
-                }
+                finishGame();
             }
         }
     }
@@ -128,6 +118,20 @@ public class Game {
             return homeTeam;
         } else {
             return awayTeam;
+        }
+    }
+
+    public void finishGame() {
+        this.currentPhase = Phase.Postgame;
+        if (teamStats.get(awayTeam).getTotalPoints() == teamStats.get(homeTeam).getTotalPoints()) {
+            awayTeam.getRecord().addTie();
+            homeTeam.getRecord().addTie();
+        } else if (teamStats.get(awayTeam).getTotalPoints() > teamStats.get(homeTeam).getTotalPoints()) {
+            awayTeam.getRecord().addWin();
+            homeTeam.getRecord().addLoss();
+        } else if (teamStats.get(awayTeam).getTotalPoints() < teamStats.get(homeTeam).getTotalPoints()) {
+            awayTeam.getRecord().addLoss();
+            homeTeam.getRecord().addWin();
         }
     }
 

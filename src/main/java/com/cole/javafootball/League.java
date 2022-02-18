@@ -76,7 +76,92 @@ public class League {
     }
 
     public void advanceWeek() {
+        switch (currentWeek) {
+        case 16:
+            createConferenceSemis();
+            break;
+        case 17:
+            createConferenceChampionships();
+            break;
+        case 18:
+            createLeagueChampionship();
+            break;
+        }
         ++currentWeek;
+    }
+
+    public void createConferenceSemis() {
+        Week conferenceSemis = new Week((short) 17);
+        for (Conference conference : getConferences()) {
+            for (int i = 0; i < 4; i++) {
+                Team team = conference.getStandings().get(i);
+                team.setPlayoffSeed((short) (i + 1));
+                conference.getPlayoffTeams().add(team);
+            }
+            conferenceSemis.addGame(
+                    new Game((short) 17, conference.getPlayoffTeams().get(0), conference.getPlayoffTeams().get(3)));
+            conferenceSemis.addGame(
+                    new Game((short) 17, conference.getPlayoffTeams().get(1), conference.getPlayoffTeams().get(2)));
+        }
+
+        weeks.add(conferenceSemis);
+    }
+
+    public void createConferenceChampionships() {
+        Week conferenceChampionships = new Week((short) 18);
+
+        // get winners from previous round
+        ArrayList<Team> winners = new ArrayList<Team>();
+        for (Game game : weeks.get(17 - 1).getGames()) {
+            winners.add(game.getWinner());
+        }
+
+        // remove losers from playoff teams
+        for (Conference conference : conferences) {
+            ArrayList<Team> newPlayoffTeams = new ArrayList<Team>();
+            for (Team team : conference.getPlayoffTeams()) {
+                if (winners.contains(team)) {
+                    newPlayoffTeams.add(team);
+                }
+            }
+            conference.getPlayoffTeams().clear();
+            conference.getPlayoffTeams().addAll(newPlayoffTeams);
+        }
+
+        for (Conference conference : getConferences()) {
+            conferenceChampionships.addGame(
+                    new Game((short) 18, conference.getPlayoffTeams().get(0), conference.getPlayoffTeams().get(1)));
+        }
+
+        weeks.add(conferenceChampionships);
+    }
+
+    public void createLeagueChampionship() {
+        Week leagueChampionship = new Week((short) 19);
+
+        // get winners from previous round
+        ArrayList<Team> winners = new ArrayList<Team>();
+        for (Game game : weeks.get(18 - 1).getGames()) {
+            winners.add(game.getWinner());
+        }
+
+        // remove losers from playoff teams
+        for (Conference conference : conferences) {
+            ArrayList<Team> newPlayoffTeams = new ArrayList<Team>();
+            for (Team team : conference.getPlayoffTeams()) {
+                if (winners.contains(team)) {
+                    newPlayoffTeams.add(team);
+                }
+            }
+            conference.getPlayoffTeams().clear();
+            conference.getPlayoffTeams().addAll(newPlayoffTeams);
+        }
+
+        leagueChampionship
+                .addGame(new Game((short) 19, getConferenceByName("Western Conference").getPlayoffTeams().get(0),
+                        getConferenceByName("Eastern Conference").getPlayoffTeams().get(0)));
+
+        weeks.add(leagueChampionship);
     }
 
     public void loadTeamData() {

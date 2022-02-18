@@ -22,7 +22,7 @@ public class LeagueController {
     @ResponseBody
     public String advanceWeek(@PathVariable(value = "leagueId") String leagueId) {
         League league = League.getLeague(leagueId);
-        if (league.getCurrentWeek() >= 16) {
+        if (league.getCurrentWeek() >= 19) {
             return "There are no more weeks left!";
         } else if (league.getWeeks().get(league.getCurrentWeek() - 1).allGamesSimmed()) {
             league.advanceWeek();

@@ -19,6 +19,8 @@ public class Team {
 
     private TeamRecord record = new TeamRecord();
 
+    private short playoffSeed = -1;
+
     private DepthChart depthChart = new DepthChart();
 
     private ArrayList<Player> activeRoster = new ArrayList<Player>();
@@ -125,6 +127,14 @@ public class Team {
 
     public String getName() {
         return name;
+    }
+
+    public short getPlayoffSeed() {
+        return playoffSeed;
+    }
+
+    public void setPlayoffSeed(short seed) {
+        playoffSeed = seed;
     }
 
     public String getAbbreviation() {
