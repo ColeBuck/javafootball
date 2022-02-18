@@ -16,6 +16,7 @@
     <p>The game is very early in development. Currently, you can: </p>
     <ul id="features">
         <li>Check out the teams and their randomly-generated rosters</li>
+        <li>Simulate an entire season</li>
         <li>Simulate games between teams of your choice</li>
         <li>See how the teams stack up on the standings page</li>
     </ul>
@@ -28,8 +29,8 @@
             document.body.innerHTML = document.body.innerHTML + "<div id='leagues'></div>";
             for(let i = 0; i < leagues.length; i++) {
                 let a = document.createElement("a")
-                a.href="/leagues/" + leagues[i] + "/standings"
-                a.innerHTML = leagues[i]
+                a.href="/leagues/" + leagues[i][1] + "/standings"
+                a.innerHTML = leagues[i][0]
                 a.classList += "league-link"
                 document.getElementById("leagues").appendChild(a);
             }
@@ -38,26 +39,34 @@
 
     <script>
         function createLeague() {
-            var request = new XMLHttpRequest();
-            request.open('POST', "/leagues", true);
+            let leagueName = prompt("Please enter a name for your league: ");
+            if(leagueName != null && leagueName != "") {
 
-            request.onreadystatechange = function () {
-                    if (request.readyState === 4) {
-                        console.log(request.status);
-                        console.log(request.responseText);
-                        
-                        var leagues = JSON.parse(sessionStorage.getItem("leagues"));
-                        if(leagues == null) {
-                            leagues = []
+                var request = new XMLHttpRequest();
+                request.open('POST', "/leagues", true);
+
+                request.onreadystatechange = function () {
+                        if (request.readyState === 4) {
+                            console.log(request.status);
+                            console.log(request.responseText);
+                            
+                            var leagues = JSON.parse(sessionStorage.getItem("leagues"));
+                            if(leagues == null) {
+                                leagues = []
+                            }
+
+                            league = [] // holds league name and id
+                            league.push(leagueName)
+                            league.push(request.responseText)
+                            leagues.push(league)
+
+                            sessionStorage.leagues = JSON.stringify(leagues);
+
+                            window.location.href="/leagues/" + request.responseText + "/standings";
                         }
-                        leagues.push(request.responseText);
-                        sessionStorage.leagues = JSON.stringify(leagues);
-
-                        window.location.href="/leagues/" + request.responseText + "/standings";
-                    }
-            };
-
-            request.send()
+                };
+                request.send()
+            }
         }
     </script>
 </body>
