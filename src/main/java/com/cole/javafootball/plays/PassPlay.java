@@ -132,7 +132,6 @@ public class PassPlay extends ScrimmagePlay {
     public short calculateYardsGained() {
         Random rand = new Random();
         float diff = (offense.getOffenseRating() - defense.getDefenseRating());
-        System.out.println(diff / 50);
         return (short) (rand.nextInt(18) * (diff / 50 + 1)); // TODO: need more complex algorithm here
     }
 }
