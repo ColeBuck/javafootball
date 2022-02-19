@@ -11,6 +11,7 @@ import com.cole.javafootball.plays.Play;
 public class Game {
 
     private String id;
+    private League league;
     private short week;
 
     private Team homeTeam;
@@ -39,8 +40,9 @@ public class Game {
 
     private boolean overtime = false;
 
-    public Game(short week, Team homeTeam, Team awayTeam) {
+    public Game(League league, short week, Team homeTeam, Team awayTeam) {
         this.id = UUID.randomUUID().toString();
+        this.league = league;
         this.week = week;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -135,6 +137,7 @@ public class Game {
             awayTeam.getRecord().addLoss();
             homeTeam.getRecord().addWin();
         }
+        league.addNewsArticle(new NewsArticle(this));
     }
 
     public String getId() {
@@ -175,6 +178,20 @@ public class Game {
                 return awayTeam;
             } else {
                 return homeTeam;
+            }
+        }
+    }
+
+    public Team getLoser() {
+        if (currentPhase != Phase.Postgame) {
+            return null;
+        } else {
+            if (teamStats.get(awayTeam).getTotalPoints() == teamStats.get(homeTeam).getTotalPoints()) {
+                return null;
+            } else if (teamStats.get(awayTeam).getTotalPoints() > teamStats.get(homeTeam).getTotalPoints()) {
+                return homeTeam;
+            } else {
+                return awayTeam;
             }
         }
     }

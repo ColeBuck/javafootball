@@ -1,0 +1,20 @@
+div.article {
+  display: inline-block;
+  width: 40%;
+  margin: 35px auto;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  background-color: black;
+}
+
+div.article h3 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
+div.article p {
+  text-align: left;
+  font-size: 16px;
+  font-style: italic;
+}

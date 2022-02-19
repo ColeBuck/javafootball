@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Java Football</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+    <link th:href="@{/stylesheets/base.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/teams.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/news.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/ticker.css}" rel="stylesheet" />
+    <link th:href="@{/stylesheets/modal.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/modal.html :: modal"></div>
+
+    <h2>League News</h2>
+
+    <div th:each="article, status : ${league.newsArticles}" class="article">
+        <p th:text="${article.weekString}"></p>
+        <h3 th:text="${article.headline}"></h3>
+    </div>
+
+    <div th:replace="fragments/ticker.html :: ticker"></div>
+</body>

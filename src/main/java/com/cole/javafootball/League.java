@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.core.io.ClassPathResource;
@@ -20,6 +21,8 @@ public class League {
     private ArrayList<Conference> conferences = new ArrayList<Conference>();
     private ArrayList<Team> teams = new ArrayList<Team>();
     private ArrayList<Week> weeks = new ArrayList<Week>();
+
+    private List<NewsArticle> newsArticles = new ArrayList<NewsArticle>();
 
     public League() {
         this.id = UUID.randomUUID().toString();
@@ -53,7 +56,7 @@ public class League {
                 int awayIndex = Integer.valueOf(lineData[1]) - 1;
                 int homeIndex = Integer.valueOf(lineData[2]) - 1;
 
-                weeks.get(week).addGame(new Game((short) (week + 1), teams.get(homeIndex), teams.get(awayIndex)));
+                weeks.get(week).addGame(new Game(this, (short) (week + 1), teams.get(homeIndex), teams.get(awayIndex)));
             }
 
             br.close();
@@ -98,10 +101,10 @@ public class League {
                 team.setPlayoffSeed((short) (i + 1));
                 conference.getPlayoffTeams().add(team);
             }
-            conferenceSemis.addGame(
-                    new Game((short) 17, conference.getPlayoffTeams().get(0), conference.getPlayoffTeams().get(3)));
-            conferenceSemis.addGame(
-                    new Game((short) 17, conference.getPlayoffTeams().get(1), conference.getPlayoffTeams().get(2)));
+            conferenceSemis.addGame(new Game(this, (short) 17, conference.getPlayoffTeams().get(0),
+                    conference.getPlayoffTeams().get(3)));
+            conferenceSemis.addGame(new Game(this, (short) 17, conference.getPlayoffTeams().get(1),
+                    conference.getPlayoffTeams().get(2)));
         }
     }
 
@@ -127,8 +130,8 @@ public class League {
         }
 
         for (Conference conference : getConferences()) {
-            conferenceChampionships.addGame(
-                    new Game((short) 18, conference.getPlayoffTeams().get(0), conference.getPlayoffTeams().get(1)));
+            conferenceChampionships.addGame(new Game(this, (short) 18, conference.getPlayoffTeams().get(0),
+                    conference.getPlayoffTeams().get(1)));
         }
     }
 
@@ -154,7 +157,7 @@ public class League {
         }
 
         leagueChampionship
-                .addGame(new Game((short) 19, getConferenceByName("Western Conference").getPlayoffTeams().get(0),
+                .addGame(new Game(this, (short) 19, getConferenceByName("Western Conference").getPlayoffTeams().get(0),
                         getConferenceByName("Eastern Conference").getPlayoffTeams().get(0)));
 
     }
@@ -226,5 +229,13 @@ public class League {
             }
         }
         return null;
+    }
+
+    public List<NewsArticle> getNewsArticles() {
+        return newsArticles;
+    }
+
+    public void addNewsArticle(NewsArticle article) {
+        newsArticles.add(0, article);
     }
 }
