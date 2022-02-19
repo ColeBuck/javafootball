@@ -27,7 +27,7 @@ public class League {
         conferences.add(new Conference("Eastern Conference"));
         loadTeamData();
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 19; i++) {
             weeks.add(new Week((short) (i + 1)));
         }
         loadScheduleData();
@@ -91,7 +91,7 @@ public class League {
     }
 
     public void createConferenceSemis() {
-        Week conferenceSemis = new Week((short) 17);
+        Week conferenceSemis = weeks.get(17 - 1);
         for (Conference conference : getConferences()) {
             for (int i = 0; i < 4; i++) {
                 Team team = conference.getStandings().get(i);
@@ -103,12 +103,10 @@ public class League {
             conferenceSemis.addGame(
                     new Game((short) 17, conference.getPlayoffTeams().get(1), conference.getPlayoffTeams().get(2)));
         }
-
-        weeks.add(conferenceSemis);
     }
 
     public void createConferenceChampionships() {
-        Week conferenceChampionships = new Week((short) 18);
+        Week conferenceChampionships = weeks.get(18 - 1);
 
         // get winners from previous round
         ArrayList<Team> winners = new ArrayList<Team>();
@@ -132,12 +130,10 @@ public class League {
             conferenceChampionships.addGame(
                     new Game((short) 18, conference.getPlayoffTeams().get(0), conference.getPlayoffTeams().get(1)));
         }
-
-        weeks.add(conferenceChampionships);
     }
 
     public void createLeagueChampionship() {
-        Week leagueChampionship = new Week((short) 19);
+        Week leagueChampionship = weeks.get(19 - 1);
 
         // get winners from previous round
         ArrayList<Team> winners = new ArrayList<Team>();
@@ -161,7 +157,6 @@ public class League {
                 .addGame(new Game((short) 19, getConferenceByName("Western Conference").getPlayoffTeams().get(0),
                         getConferenceByName("Eastern Conference").getPlayoffTeams().get(0)));
 
-        weeks.add(leagueChampionship);
     }
 
     public void loadTeamData() {
