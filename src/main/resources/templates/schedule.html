@@ -24,7 +24,8 @@
 
 
     <div th:id="${'week-' + (status.index + 1)}" class="week" th:each="week,status : ${league.weeks}">
-        <button th:if="${league.currentWeek == (status.index + 1)}" class="sim-week" th:attr="onclick=|simWeek('${status.index + 1}')|" >Simulate Week</button>
+        <button th:if="${league.currentWeek == (status.index + 1)} and ${!league.weeks.get(league.currentWeek-1).allGamesSimmed}" class="sim-week" th:attr="onclick=|simWeek('${status.index + 1}')|" >Simulate Week</button>
+        <button th:if="${league.currentWeek < (status.index + 1)}" class="sim-week" th:attr="onclick=|simToWeek('${status.index + 1}')|">Simulate to This Week</button>
         
         <th:block th:switch="${(status.index + 1)}">
             <h3 th:case="19">League Championship</h3>
@@ -82,6 +83,16 @@
         }
 
         function simWeek(week) {
+            var request = new XMLHttpRequest();
+            var url = "/leagues/" + '[[${leagueId}]]' + "/weeks/" + week;
+            request.open("PUT", url, true);
+            request.onreadystatechange = function () {
+                location.reload();
+            }
+            request.send();
+        }
+
+        function simToWeek(week) {
             var request = new XMLHttpRequest();
             var url = "/leagues/" + '[[${leagueId}]]' + "/weeks/" + week;
             request.open("PUT", url, true);

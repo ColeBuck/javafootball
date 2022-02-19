@@ -16,10 +16,21 @@ public class SimController {
     public void simWeek(@PathVariable(value = "leagueId") String leagueId, @PathVariable(value = "week") String week) {
 
         League league = League.getLeague(leagueId);
-        int weekIndex = Integer.valueOf(week) - 1;
-        for (Game game : league.getWeeks().get(weekIndex).getGames()) {
-            game.startGame();
-            game.simulateGame();
+
+        if (league.getCurrentWeek() == Integer.valueOf(week)) { // sim current week
+            int weekIndex = Integer.valueOf(week) - 1;
+            for (Game game : league.getWeeks().get(weekIndex).getGames()) {
+                game.startGame();
+                game.simulateGame();
+            }
+        } else { // sim to week
+            while (league.getCurrentWeek() < Integer.valueOf(week)) {
+                for (Game game : league.getWeeks().get(league.getCurrentWeek() - 1).getGames()) {
+                    game.startGame();
+                    game.simulateGame();
+                }
+                league.advanceWeek();
+            }
         }
     }
 }
