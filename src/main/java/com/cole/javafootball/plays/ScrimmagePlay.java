@@ -16,11 +16,16 @@ public abstract class ScrimmagePlay extends Play {
     public Play createNextPlay() {
 
         if (touchdown) {
-            return new XPAPlay(game);
+            if (game.getCurrentQuarter() > 4) {
+                return null; // sudden death overtime
+            } else {
+                return new XPAPlay(game);
+            }
         }
 
         if (game.getTimeLeftQuarter() == 0) {
-            if (game.getCurrentQuarter() < 4) {
+            if (game.getCurrentQuarter() < 4 || game.getTeamStats().get(game.getAwayTeam()).getTotalPoints() == game
+                    .getTeamStats().get(game.getHomeTeam()).getTotalPoints()) {
                 game.incrementCurrentQuarter();
                 game.setTimeLeftQuarter((short) 900);
             } else {
@@ -28,7 +33,9 @@ public abstract class ScrimmagePlay extends Play {
             }
         }
 
-        if (game.getCurrentDown() == 4) {
+        if (game.getCurrentDown() == 4)
+
+        {
             if (game.getBallPosition() > 60) {
                 return new FGAPlay(game);
             } else {

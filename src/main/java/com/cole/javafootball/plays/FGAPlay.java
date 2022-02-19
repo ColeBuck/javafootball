@@ -53,7 +53,11 @@ public class FGAPlay extends Play {
 
     public Play createNextPlay() {
         if (successful) {
-            return new KickoffPlay(game);
+            if (game.getCurrentQuarter() > 4) {
+                return null; // sudden death overtime
+            } else {
+                return new KickoffPlay(game);
+            }
         } else {
             Random rand = new Random();
             if (rand.nextInt(10) < 6) {

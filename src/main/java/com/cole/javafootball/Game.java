@@ -37,6 +37,8 @@ public class Game {
 
     private ArrayList<Play> plays = new ArrayList<Play>();
 
+    private boolean overtime = false;
+
     public Game(short week, Team homeTeam, Team awayTeam) {
         this.id = UUID.randomUUID().toString();
         this.week = week;
@@ -188,8 +190,9 @@ public class Game {
     }
 
     public void incrementCurrentQuarter() {
-        if (currentQuarter < 4) {
-            currentQuarter++;
+        currentQuarter++;
+        if (currentQuarter == 5) {
+            overtime = true;
         }
     }
 
@@ -314,6 +317,10 @@ public class Game {
         }
         return kickers;
 
+    }
+
+    public boolean getOvertime() {
+        return overtime;
     }
 
 }

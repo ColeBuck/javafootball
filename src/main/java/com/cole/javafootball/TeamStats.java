@@ -2,7 +2,7 @@ package com.cole.javafootball;
 
 public class TeamStats {
 
-    private short[] quarterPoints = new short[4];
+    private short[] quarterPoints = new short[5];
 
     private short totalPlays = 0;
     private short firstDowns = 0;
@@ -41,6 +41,10 @@ public class TeamStats {
     // needed for thymeleaf
     public short getQ4Points() {
         return quarterPoints[3];
+    }
+
+    public short getOTPoints() {
+        return quarterPoints[4];
     }
 
     public void addQuarterPoints(int quarter, short points) {
