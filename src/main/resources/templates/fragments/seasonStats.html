@@ -52,4 +52,25 @@
             <td th:text="${player.stats.runTds}"></td>
         </tr>
     </table>
+    <table th:fragment="receiving-stats">
+        <tr>
+            <th>Opponent</th>
+            <th>Catches</th>
+            <th>Receiving Yards</th>
+            <th>Receiving Touchdowns</th>
+        </tr>
+        <tr th:each="game : ${player.stats.gameStats}">
+            <td th:if="${player.team.name != game.game.awayTeam.name}" th:text="${game.game.awayTeam.name}"></td>
+            <td th:if="${player.team.name != game.game.homeTeam.name}" th:text="${game.game.homeTeam.name}"></td>
+            <td th:text="${game.receptions}"></td>
+            <td th:text="${game.receivingYards}"></td>
+            <td th:text="${game.receivingTds}"></td>
+        </tr>
+        <tr>
+            <td><b>Totals</b></td>
+            <td th:text="${player.stats.receptions}"></td>
+            <td th:text="${player.stats.receivingYards}"></td>
+            <td th:text="${player.stats.receivingTds}"></td>
+        </tr>
+    </table>
 </body>

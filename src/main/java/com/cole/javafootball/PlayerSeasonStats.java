@@ -42,6 +42,10 @@ public class PlayerSeasonStats {
         runAttempts += playerStats.getRunAttempts();
         runYards += playerStats.getRunYards();
         runTds += playerStats.getRunTds();
+
+        receptions += playerStats.getReceptions();
+        receivingYards += playerStats.getReceivingYards();
+        receivingTds += playerStats.getReceivingTds();
     }
 
     public short getPassCompletions() {

@@ -34,6 +34,15 @@
         <div th:case="'RB'">
             <h2>Season Stats</h2>
             <table th:replace="fragments/seasonStats :: rushing-stats"></table>
+            <table th:replace="fragments/seasonStats :: receiving-stats"></table>
+        </div>
+        <div th:case="'WR'">
+            <h2>Season Stats</h2>
+            <table th:replace="fragments/seasonStats :: receiving-stats"></table>
+        </div>
+        <div th:case="'TE'">
+            <h2>Season Stats</h2>
+            <table th:replace="fragments/seasonStats :: receiving-stats"></table>
         </div>
     </th:block>
     

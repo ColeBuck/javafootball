@@ -34,6 +34,17 @@
                 <td th:text="${game.playerStats.get(player).runTds}"></td>
             </tr>
             <tr>
+                <th></th><th>Catches</th>
+                <th>Receiving Yards</th>
+                <th>Receiving Touchdowns</th>
+            </tr>
+            <tr th:each="player : ${away_receivers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).receptions}"></td>
+                <td th:text="${game.playerStats.get(player).receivingYards}"></td>
+                <td th:text="${game.playerStats.get(player).receivingTds}"></td>
+            </tr>
+            <tr>
                 <th></th><th>Field Goals Made</th>
                 <th>Fields Goals Attempted</th>
                 <th>Extra Points Made</th>
@@ -76,6 +87,17 @@
                 <td th:text="${game.playerStats.get(player).runAttempts}"></td>
                 <td th:text="${game.playerStats.get(player).runYards}"></td>
                 <td th:text="${game.playerStats.get(player).runTds}"></td>
+            </tr>
+            <tr>
+                <th></th><th>Catches</th>
+                <th>Receiving Yards</th>
+                <th>Receiving Touchdowns</th>
+            </tr>
+            <tr th:each="player : ${home_receivers}">
+                <td th:text="${player.firstName + ' ' + player.lastName}"></td>
+                <td th:text="${game.playerStats.get(player).receptions}"></td>
+                <td th:text="${game.playerStats.get(player).receivingYards}"></td>
+                <td th:text="${game.playerStats.get(player).receivingTds}"></td>
             </tr>
             <tr>
                 <th></th><th>Field Goals Made</th>

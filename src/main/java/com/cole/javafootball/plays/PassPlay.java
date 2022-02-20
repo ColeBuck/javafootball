@@ -11,6 +11,8 @@ public class PassPlay extends ScrimmagePlay {
     boolean completed;
     boolean interception;
 
+    private Player receiver;
+
     public PassPlay(Game game) {
         super(game);
     }
@@ -20,6 +22,25 @@ public class PassPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
+
+        // pick random receiver
+        Random random = new Random();
+        int randInt = random.nextInt(100);
+        if (randInt > 61) {
+            receiver = offense.getDepthChart().get(DepthChartPosition.WR).get(0);
+        } else if (randInt > 41) {
+            receiver = offense.getDepthChart().get(DepthChartPosition.WR).get(1);
+        } else if (randInt > 26) {
+            receiver = offense.getDepthChart().get(DepthChartPosition.WR).get(2);
+        } else if (randInt > 11) {
+            receiver = offense.getDepthChart().get(DepthChartPosition.TE).get(0);
+        } else if (randInt > 6) {
+            receiver = offense.getDepthChart().get(DepthChartPosition.WR).get(3);
+        } else if (randInt > 0) {
+            receiver = offense.getDepthChart().get(DepthChartPosition.RB).get(0);
+        } else {
+            receiver = offense.getDepthChart().get(DepthChartPosition.TE).get(1);
+        }
 
         if (calculatePassCompletion()) {
             yardsGained = calculateYardsGained();
@@ -73,11 +94,14 @@ public class PassPlay extends ScrimmagePlay {
             game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0)).addPassCompletion();
             game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0))
                     .addPassYards(yardsGained);
+            game.getPlayerStats().get(receiver).addReception();
+            game.getPlayerStats().get(receiver).addReceivingYards(yardsGained);
         }
 
         if (touchdown) {
             game.getTeamStats().get(offense).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
             game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.QB).get(0)).addPassTd();
+            game.getPlayerStats().get(receiver).addReceivingTd();
         }
 
         if (firstDown) {
@@ -97,7 +121,8 @@ public class PassPlay extends ScrimmagePlay {
             game.setPlayDescription("The " + offense.getName() + " scored a touchdown!");
         } else if (completed) {
             Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
-            game.setPlayDescription(quarterback.getFullName() + " passed for " + yardsGained + " yards.");
+            game.setPlayDescription(quarterback.getFullName() + " passed to " + receiver.getFullName() + " for "
+                    + yardsGained + " yards.");
         } else if (interception) {
             Player quarterback = offense.getDepthChart().get(DepthChartPosition.QB).get(0);
             game.setPlayDescription(quarterback.getFullName() + " threw an interception!.");

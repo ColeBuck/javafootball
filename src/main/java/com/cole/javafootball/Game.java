@@ -1,6 +1,8 @@
 package com.cole.javafootball;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
@@ -325,6 +327,11 @@ public class Game {
                 rushers.add(player);
             }
         }
+        Collections.sort(rushers, new Comparator<Player>() {
+            public int compare(Player p1, Player p2) {
+                return playerStats.get(p2).getRunAttempts() - playerStats.get(p1).getRunAttempts();
+            }
+        });
         return rushers;
 
     }
@@ -332,11 +339,28 @@ public class Game {
     public ArrayList<Player> getKickers(Team team) {
         ArrayList<Player> kickers = new ArrayList<Player>();
         for (Player player : playerStats.keySet()) {
-            if (player.getTeam().equals(team) && playerStats.get(player).getFieldGoalAttempts() > 0) {
+            if (player.getTeam().equals(team) && (playerStats.get(player).getFieldGoalAttempts() > 0
+                    || playerStats.get(player).getExtraPointAttempts() > 0)) {
                 kickers.add(player);
             }
         }
         return kickers;
+
+    }
+
+    public ArrayList<Player> getReceivers(Team team) {
+        ArrayList<Player> receivers = new ArrayList<Player>();
+        for (Player player : playerStats.keySet()) {
+            if (player.getTeam().equals(team) && playerStats.get(player).getReceptions() > 0) {
+                receivers.add(player);
+            }
+        }
+        Collections.sort(receivers, new Comparator<Player>() {
+            public int compare(Player p1, Player p2) {
+                return playerStats.get(p2).getReceptions() - playerStats.get(p1).getReceptions();
+            }
+        });
+        return receivers;
 
     }
 
