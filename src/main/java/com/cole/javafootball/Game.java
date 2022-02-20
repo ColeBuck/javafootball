@@ -59,14 +59,10 @@ public class Game {
             // create stats objects
             for (Player player : awayTeam.getActiveRoster()) {
                 PlayerStats pStats = new PlayerStats(this);
-
-                player.getStats().add(pStats); // add stats object to player
                 playerStats.put(player, pStats); // add stats object to game
             }
             for (Player player : homeTeam.getActiveRoster()) {
                 PlayerStats pStats = new PlayerStats(this);
-
-                player.getStats().add(pStats); // add stats object to player
                 playerStats.put(player, pStats); // add stats object to game
             }
 
@@ -138,6 +134,14 @@ public class Game {
             homeTeam.getRecord().addWin();
         }
         league.addNewsArticle(new NewsArticle(this));
+
+        // add stats to players
+        for (Player player : awayTeam.getActiveRoster()) {
+            player.getStats().addGameStats(playerStats.get(player));
+        }
+        for (Player player : homeTeam.getActiveRoster()) {
+            player.getStats().addGameStats(playerStats.get(player));
+        }
     }
 
     public String getId() {

@@ -13,7 +13,7 @@
             <th>Passing Touchdowns</th>
             <th>Passing Interceptions</th>
         </tr>
-        <tr th:each="game : ${player.stats}">
+        <tr th:each="game : ${player.stats.gameStats}">
             <td th:if="${player.team.name != game.game.awayTeam.name}" th:text="${game.game.awayTeam.name}"></td>
             <td th:if="${player.team.name != game.game.homeTeam.name}" th:text="${game.game.homeTeam.name}"></td>
             <td th:text="${game.passCompletions}"></td>
@@ -21,6 +21,14 @@
             <td th:text="${game.passYards}"></td>
             <td th:text="${game.passTds}"></td>
             <td th:text="${game.passInts}"></td>
+        </tr>
+        <tr>
+            <td><b>Totals</b></td>
+            <td th:text="${player.stats.passCompletions}"></td>
+            <td th:text="${player.stats.passAttempts}"></td>
+            <td th:text="${player.stats.passYards}"></td>
+            <td th:text="${player.stats.passTds}"></td>
+            <td th:text="${player.stats.passInts}"></td>
         </tr>
     </table>
     <table th:fragment="rushing-stats">
@@ -30,12 +38,18 @@
             <th>Rushing Yards</th>
             <th>Rushing Touchdowns</th>
         </tr>
-        <tr th:each="game : ${player.stats}">
+        <tr th:each="game : ${player.stats.gameStats}">
             <td th:if="${player.team.name != game.game.awayTeam.name}" th:text="${game.game.awayTeam.name}"></td>
             <td th:if="${player.team.name != game.game.homeTeam.name}" th:text="${game.game.homeTeam.name}"></td>
             <td th:text="${game.runAttempts}"></td>
             <td th:text="${game.runYards}"></td>
             <td th:text="${game.runTds}"></td>
+        </tr>
+        <tr>
+            <td><b>Totals</b></td>
+            <td th:text="${player.stats.runAttempts}"></td>
+            <td th:text="${player.stats.runYards}"></td>
+            <td th:text="${player.stats.runTds}"></td>
         </tr>
     </table>
 </body>

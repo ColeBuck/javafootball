@@ -1,6 +1,5 @@
 package com.cole.javafootball;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ public class Player {
 
     private PlayerRatings ratings;
 
-    private ArrayList<PlayerStats> stats = new ArrayList<PlayerStats>();
+    private PlayerSeasonStats seasonStats = new PlayerSeasonStats();
 
     public Player() {
         id = UUID.randomUUID().toString();
@@ -82,8 +81,8 @@ public class Player {
         return ratings;
     }
 
-    public ArrayList<PlayerStats> getStats() {
-        return stats;
+    public PlayerSeasonStats getStats() {
+        return seasonStats;
     }
 
     public Team getTeam() {
