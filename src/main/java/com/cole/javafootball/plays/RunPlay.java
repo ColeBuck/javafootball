@@ -7,6 +7,9 @@ import com.cole.javafootball.Game;
 import com.cole.javafootball.Player;
 
 public class RunPlay extends ScrimmagePlay {
+
+    private Player runner;
+
     public RunPlay(Game game) {
         super(game);
     }
@@ -16,6 +19,14 @@ public class RunPlay extends ScrimmagePlay {
     }
 
     public void simulatePlay() {
+
+        // choose between starting and backup RB
+        Random random = new Random();
+        if (random.nextInt(10) > 1) {
+            runner = offense.getDepthChart().get(DepthChartPosition.RB).get(0);
+        } else {
+            runner = offense.getDepthChart().get(DepthChartPosition.RB).get(1);
+        }
 
         yardsGained = calculateYardsGained();
         game.setYardsToGo((short) (yardsToGo - yardsGained));
@@ -45,10 +56,10 @@ public class RunPlay extends ScrimmagePlay {
     public void updateStats() {
 
         game.getTeamStats().get(offense).addPlay();
-        game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.RB).get(0)).addRunAttempt();
+        game.getPlayerStats().get(runner).addRunAttempt();
 
         game.getTeamStats().get(offense).addRushingYards(yardsGained);
-        game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.RB).get(0)).addRunYards(yardsGained);
+        game.getPlayerStats().get(runner).addRunYards(yardsGained);
 
         if (currentDown == 3) {
             game.getTeamStats().get(offense).addThirdDownConversionAttempt();
@@ -56,7 +67,7 @@ public class RunPlay extends ScrimmagePlay {
 
         if (touchdown) {
             game.getTeamStats().get(offense).addQuarterPoints(game.getCurrentQuarter(), (short) 6);
-            game.getPlayerStats().get(offense.getDepthChart().get(DepthChartPosition.RB).get(0)).addRunTd();
+            game.getPlayerStats().get(runner).addRunTd();
         }
 
         if (firstDown) {
@@ -71,8 +82,7 @@ public class RunPlay extends ScrimmagePlay {
         if (touchdown) {
             game.setPlayDescription("The " + offense.getName() + " scored a touchdown!");
         } else {
-            Player runningBack = offense.getDepthChart().get(DepthChartPosition.RB).get(0);
-            game.setPlayDescription(runningBack.getFullName() + " ran for " + yardsGained + " yards.");
+            game.setPlayDescription(runner.getFullName() + " ran for " + yardsGained + " yards.");
         }
     }
 
